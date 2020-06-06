@@ -1,9 +1,10 @@
 import React from 'react';
+import FeedContainer from './containers/FeedContainer';
 
 const App = () => {
 
   return(
-    <h1>#neverforget</h1>
+    <FeedContainer />
   )
 };
 

@@ -4,6 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
+/*
+
+Displays the currently selected topic of the feed
+
+*/
+
 const useStyles = makeStyles({
   itemHeader: {
     marginTop: 15,

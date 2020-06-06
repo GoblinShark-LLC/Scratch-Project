@@ -5,7 +5,7 @@ import FeedItem from '../components/FeedItem';
 
 /*
 
-Renders a container showing all feed items relate to a certain topic
+Renders a container showing all feed items related to a certain topic
 
 */
 const FeedItemContainer = (props) => {
@@ -36,7 +36,8 @@ const FeedItemContainer = (props) => {
             category={elem.tech}
             likes={elem.likes}
             id={elem.id}
-            key={index} />;
+            key={index}
+            liked={elem.liked} />;
   })
   return(
     <div>

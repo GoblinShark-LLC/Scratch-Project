@@ -43,10 +43,12 @@ const FeedItem = (props) => {
     <Card className={classes.itemWrap}>
       <CardContent>
         <Box>
-          <Typography variant="h6" component="h6">
+          {/* displays resource title */}
+          <Typography variant="h6">
             {props.title}
           </Typography>
         </Box>
+        {/* displays resource description */}
         <Typography variant="body1">
           {props.description}
         </Typography>
@@ -55,8 +57,9 @@ const FeedItem = (props) => {
           <Button size="small" color="primary">
             Visit Resource
           </Button>
+          {/* toggles the likes for each resource */}
           <Button size="small" onClick={() => toggleHeart()}>
-            {props.likes} {liked ? 
+            {props.likes} {props.liked ? 
                             <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon/>}
           </Button>
         </div>

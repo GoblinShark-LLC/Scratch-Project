@@ -1,9 +1,10 @@
 import React from 'react';
+import MainContainer from './containers/MainContainer';
 
 const App = () => {
 
   return(
-    <h1>#neverforget</h1>
+    <MainContainer />
   )
 };
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import FeedContainer from './containers/FeedContainer';
+
+import MainContainer from './containers/MainContainer';
+
 
 const App = () => {
 
   return(
-    <FeedContainer />
+    <MainContainer />
   )
 };
 

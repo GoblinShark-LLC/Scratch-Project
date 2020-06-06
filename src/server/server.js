@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 // set up routers
-app.use('/resource', resourceRouter);
+// app.use('/resource', resourceRouter);
 
 
 // send main app

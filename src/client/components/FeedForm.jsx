@@ -22,7 +22,9 @@ class FeedForm extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        
+      </div>
     )
   }
 }

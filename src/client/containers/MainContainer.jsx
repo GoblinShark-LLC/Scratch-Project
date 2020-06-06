@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'; 
 import NavContainer from './NavContainer'; 
+import FeedContainer from './FeedItemContainer';
 
 // until we connect to redux/back end
 const dummyState = {

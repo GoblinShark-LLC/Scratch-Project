@@ -13,11 +13,15 @@ app.use('/resource', resourceRouter);
 
 
 // send main app
-app.get('/', res.status(200).sendFile(path.resolve(__dirname, './client/index.html')));
+app.get('/', (req, res) => {
+    return res.status(200).sendFile(path.resolve(__dirname, './client/index.html'))
+});
 
 
 // catch-all route handler
-app.use((req, res) => res.sendStatus(404));
+app.use('*',(req, res) => {
+    return res.sendStatus(404)
+});
 
 // global error handler
 app.use((err, req, res, next) =>{

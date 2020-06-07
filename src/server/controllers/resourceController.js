@@ -7,6 +7,7 @@ let item = '';
 // Get all resources from the db based on tech
 resourceController.getResources = (req, res, next) => {
   let tech_name = req.params.name;
+  console.log('In the getgetresources');
   item = `SELECT * FROM resources JOIN techs ON techs._id = resources.tech_id WHERE techs.tech = '${tech_name}' ORDER BY likes;`;
   db.query(item)
     .then((query) => {
@@ -43,7 +44,8 @@ resourceController.getTechId = (req, res, next) => {
 resourceController.addResource = (req, res, next) => {
   let techId = res.locals.techId;
   let { name, description, url } = req.body;
-  item = `SELECT * FROM resources JOIN techs ON techs._id = resources.tech_id WHERE techs.tech = '${tech_name}' ORDER BY likes;`;
+  item = `INSERT INTO resources (name, description, url, likes, tech_id)
+    VALUES ('${name}', '${description}', '${url}', 0, ${techId});`;
   db.query(item)
     .then((query) => {
       res.locals.resources = query.rows;

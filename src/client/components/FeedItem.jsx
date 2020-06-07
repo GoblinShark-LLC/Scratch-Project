@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -28,16 +28,12 @@ const useStyles = makeStyles({
 
 const FeedItem = (props) => {
   const classes = useStyles();
-  let liked = true;
- 
+  
+  //dummy react hook to for 'like' state
+  let [liked, setLiked] = useState(props.liked);
+
   const toggleHeart = () => {
-    if (liked) {
-      liked = false;
-      console.log(liked);
-    } else {
-      liked = true;
-      console.log(liked);
-    }
+    setLiked( liked? false: true);
   }
   return (
     <Card className={classes.itemWrap}>
@@ -59,7 +55,7 @@ const FeedItem = (props) => {
           </Button>
           {/* toggles the likes for each resource */}
           <Button size="small" onClick={() => toggleHeart()}>
-            {props.likes} {props.liked ? 
+            {props.likes} {liked ? 
                             <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon/>}
           </Button>
         </div>

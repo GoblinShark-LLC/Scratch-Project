@@ -8,8 +8,9 @@ let item = '';
 resourceController.getResources = (req, res, next) => {
   let tech_name = req.params.name;
   console.log('In the getgetresources');
-  item = `SELECT * FROM resources JOIN techs ON techs._id = resources.tech_id WHERE techs.tech = '${tech_name}' ORDER BY likes;`;
-  db.query(item)
+  item = `SELECT resources._id, resources.name, resources.url, resources.likes, resources.description, resources.tech_id, resources.liked, techs.tech FROM resources, techs WHERE techs.tech = $1 and techs._id = resources.tech_id order by likes;`;
+  const values = [tech_name];
+  db.query(item, values)
     .then((query) => {
       res.locals.resources = query.rows;
       return next();
@@ -25,8 +26,9 @@ resourceController.getResources = (req, res, next) => {
 // Get's the tech id (from post tech name in the request body) to be used in adding a resource
 resourceController.getTechId = (req, res, next) => {
   let tech = req.params.name;
-  item = `SELECT _id FROM techs WHERE tech = '${tech}'`;
-  db.query(item)
+  item = `SELECT _id FROM techs WHERE tech = $1`;
+  const values = [tech];
+  db.query(item, values)
     .then((query) => {
       // Get just the number value from our rows
       res.locals.techId = query.rows[0]._id;
@@ -45,8 +47,9 @@ resourceController.addResource = (req, res, next) => {
   let techId = res.locals.techId;
   let { name, description, url } = req.body;
   item = `INSERT INTO resources (name, description, url, likes, tech_id)
-    VALUES ('${name}', '${description}', '${url}', 0, ${techId});`;
-  db.query(item)
+    VALUES ($1, $2, $3, 0, $4);`;
+  const values = [name, description, url, techId];
+  db.query(item, values)
     .then((query) => {
       res.locals.resources = query.rows;
       return next();
@@ -62,8 +65,9 @@ resourceController.addResource = (req, res, next) => {
 // Get resource from the db based on resource name
 resourceController.getResourceOne = (req, res, next) => {
   let resourceName = req.params.name;
-  item = `SELECT * FROM resources WHERE name = '${resourceName}'`;
-  db.query(item)
+  item = `SELECT * FROM resources WHERE name = $1`;
+  const values = [resourceName];
+  db.query(item, values)
     .then((query) => {
       res.locals.resources = query.rows;
       return next();
@@ -80,8 +84,9 @@ resourceController.getResourceOne = (req, res, next) => {
 resourceController.addLike = (req, res, next) => {
   let resourceName = req.params.name;
   // Increase like count by 1 for a resource(name)
-  item = `UPDATE resources SET likes = likes + 1 WHERE name = '${resourceName}'`;
-  db.query(item)
+  item = `UPDATE resources SET likes = likes + 1, liked = true WHERE name = $1`;
+  const values = [resourceName];
+  db.query(item, values)
     .then(() => {
       return next();
     })
@@ -97,8 +102,9 @@ resourceController.addLike = (req, res, next) => {
 resourceController.subtractLike = (req, res, next) => {
   let resourceName = req.params.name;
   // Decrease like count by 1 for a resource(name) if the likes > 0
-  item = `UPDATE resources SET likes = likes - 1 WHERE name = '${resourceName}' and likes > 0`;
-  db.query(item)
+  item = `UPDATE resources SET likes = likes - 1 , liked = false WHERE name = $1 and likes > 0`;
+  const values = [resourceName];
+  db.query(item, values)
     .then(() => {
       return next();
     })

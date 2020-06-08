@@ -1,7 +1,15 @@
-import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-dev-tools';
-import reducers from './reducers/index';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import resourceReducer from './reducers/resourceReducer';
 
-const store = createStore(reducers, composeWithDevTools());
+const middlewares = [thunk];
+
+// pass in our only reducer file to createStore function
+// exporting a store to be used in Provider wrapping our App
+const store = createStore(
+  resourceReducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
+);
 
 export default store;

@@ -8,13 +8,14 @@ import {
   Button,
   TextField,
   Select,
-  MenuItem
-} from "@material-ui/core";
+  MenuItem,
+} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 
+import * as actions from '../actions/actions';
 /*
 Form to submit a new resource
 */
@@ -22,12 +23,12 @@ Form to submit a new resource
 // component styling
 const useStyles = makeStyles((theme) => ({
   floatedAdd: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 50,
-    right: 60
+    right: 60,
   },
   floatedForm: {
-    position: 'absolute'
+    position: 'absolute',
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -43,33 +44,42 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     '& > *': {
-      margin: theme.spacing(1, 0)
-    }
+      margin: theme.spacing(1, 0),
+    },
   },
   formControl: {
-    minWidth: 175
-  }
+    minWidth: 175,
+  },
 }));
 
-export default function FeedForm() {
+const mapStateToProps = (state) => ({
+  techs: state.topics,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  addResource: (resource_obj) => {
+    dispatch(actions.addResource(resource_obj));
+  },
+});
+
+const FeedForm = (props) => {
   const classes = useStyles();
 
-  const topics = ['Javascript','React','Redux','Angular','Vue','MongoDB','Jest','Enzyme','Puppeteer','Typescript','Node','Express' ];
+  const techs = props.techs;
 
   // setting initial form states
   // as well as default values for resource object
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [description, setDesc] = useState('');
   const [url, setUrl] = useState('');
-  const [topic, setTopic] = useState('');
-  
+  const [tech, setTech] = useState('');
+
   const liked = false;
   const likes = 0;
 
   const validateForm = () => {
-    if (title === '' || description === '' || url === '' || topic === '') {
+    if (name === '' || description === '' || url === '' || tech === '') {
       // at least one field is empty, return false
       console.log('All form fields are required');
       return false;
@@ -78,87 +88,119 @@ export default function FeedForm() {
       console.log('Form is validated!');
       return true;
     }
-  }
+  };
 
   // clears form when successfully submitting form
   // and when exiting modal
   const clearForm = () => {
-    setTitle('');
+    setName('');
     setDesc('');
     setUrl('');
-    setTopic('');
-  }
+    setTech('');
+  };
 
   // called to toggle form modal
   const toggleForm = () => {
-    setOpen( open? false: true);
-  }
+    setOpen(open ? false : true);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      let resourceObj = { title, description, url, topic, liked, likes };
+      let resourceObj = { name, description, url, tech, liked, likes };
       console.log('Sending the following resource to db:');
       console.log(resourceObj);
+      props.addResource(resourceObj);
       setTimeout(() => {
         console.log('Resetting form and closing modal');
         clearForm();
         setOpen(false);
       }, 250);
     }
-  }
+  };
 
   // generic change event listener handling change for
   // all input fields based on their name attribute
   const handleChange = (e) => {
     let inputVal = e.target.value;
     switch (e.target.name) {
-      case "title":
-        setTitle(inputVal);
+      case 'name':
+        setName(inputVal);
         break;
-      case "desc":
+      case 'desc':
         setDesc(inputVal);
         break;
-      case "url":
+      case 'url':
         setUrl(inputVal);
         break;
-      case "tech":
-        setTopic(inputVal);
+      case 'tech':
+        setTech(inputVal);
         break;
     }
-  }
+  };
 
   const formBody = (
     <div className={classes.paper}>
-      <Typography variant="h5">
-        Add a Resource
-      </Typography>
-      <TextField required fullWidth name="title" label="Title" variant="outlined" value={title} onChange={handleChange} />
-      <TextField required name="desc" label="Description" multiline fullWidth rows={4} value={description} variant="outlined" onChange={handleChange} />
-      <TextField required name="url" label="URL" fullWidth value={url} variant="outlined" onChange={handleChange} />
+      <Typography variant="h5">Add a Resource</Typography>
+      <TextField
+        required
+        fullWidth
+        name="name"
+        label="Title"
+        variant="outlined"
+        value={name}
+        onChange={handleChange}
+      />
+      <TextField
+        required
+        name="desc"
+        label="Description"
+        multiline
+        fullWidth
+        rows={4}
+        value={description}
+        variant="outlined"
+        onChange={handleChange}
+      />
+      <TextField
+        required
+        name="url"
+        label="URL"
+        fullWidth
+        value={url}
+        variant="outlined"
+        onChange={handleChange}
+      />
       <FormControl required variant="outlined" className={classes.formControl}>
         <InputLabel>Tech</InputLabel>
-        <Select name="tech" value={topic} onChange={handleChange} label="Tech">
-        { 
-          topics.map( (elem, index) => {
-            return <MenuItem key={index} value={elem.toLowerCase()}>{elem}</MenuItem>
-          })
-        }
+        <Select name="tech" value={tech} onChange={handleChange} label="Tech">
+          {techs.map((elem, index) => {
+            return (
+              <MenuItem key={index} value={elem.toLowerCase()}>
+                {elem}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
       <div>
-        <Button variant="contained" color="primary" size="large" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleSubmit}
+        >
           SUBMIT
         </Button>
       </div>
     </div>
-  )
+  );
 
   return (
     <div>
       <div className={classes.floatedAdd} onClick={toggleForm}>
         <Fab color="primary" aria-label="add" variant="extended">
-          <AddIcon className={classes.extendedIcon}/>
+          <AddIcon className={classes.extendedIcon} />
           ADD RESOURCE
         </Fab>
       </div>
@@ -168,5 +210,7 @@ export default function FeedForm() {
         </Modal>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedForm);

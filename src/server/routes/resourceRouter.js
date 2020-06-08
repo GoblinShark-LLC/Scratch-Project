@@ -22,9 +22,9 @@ router.post(
 
 // Add a like and return the new list of resources
 router.put(
-  '/upvote/:name',
+  '/upvote',
   resourceController.addLike,
-  resourceController.getResourceOne,
+  resourceController.getResources,
   (req, res) => {
     return res.status(200).json(res.locals.resources);
   }
@@ -32,9 +32,9 @@ router.put(
 
 // // Subtract a like and return the new list of resources
 router.put(
-  '/downvote/:name',
+  '/downvote',
   resourceController.subtractLike,
-  resourceController.getResourceOne,
+  resourceController.getResources,
   (req, res) => {
     return res.status(200).json(res.locals.resources);
   }

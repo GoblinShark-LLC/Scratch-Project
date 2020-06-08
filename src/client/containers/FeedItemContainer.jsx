@@ -8,6 +8,7 @@ import FeedItem from '../components/FeedItem';
 Renders a container showing all feed items related to a certain topic
 
 */
+
 const FeedItemContainer = (props) => {
 
   const resources = [{

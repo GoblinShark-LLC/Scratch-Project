@@ -13,7 +13,7 @@ import NavItem from '../components/NavItem';
 import * as actions from '../actions/actions';
 import { connect } from 'react-redux';
 // define width of sidebar
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 // custom styles for the sidebar
 const useStyles = makeStyles((theme) => ({

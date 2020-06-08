@@ -1,26 +1,13 @@
 import React from 'react';
-import { Container, Typography, AppBar, Toolbar } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Container, Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import NavContainer from './NavContainer';
 import FeedContainer from './FeedContainer';
 
-// until we connect to redux/back end
-const dummyState = {
-  topics: [
-    'Javascript',
-    'React',
-    'Redux',
-    'Angular',
-    'Vue',
-    'MongoDB',
-    'Jest',
-    'Enzyme',
-    'Puppeteer',
-    'Typescript',
-    'Node',
-    'Express',
-  ],
-};
+const mapStateToProps = state => {
+  topics: state.topics
+}
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
   },
-  offset: theme.mixins.toolbar,
+  subHeader: {
+    display: 'inline',
+    marginLeft: theme.spacing(2)
+  }
 }));
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
@@ -44,15 +34,18 @@ const MainContainer = (props) => {
       {/* AppBar, where the title of website is, stays on top*/}
       <AppBar position="fixed" className={classes.appBar}>
         <Typography variant="h4" align="left">
-          Tails for TypeScript #neverforget
+          {'</DevShark>'}
+          <Typography variant="h6" align="left" className={classes.subHeader}>
+            Developer Resource Aggregator
+          </Typography>
         </Typography>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>
-      <NavContainer topics={dummyState.topics} />
+      <NavContainer topics={props.topics} />
       <FeedContainer />
     </Container>
   );
 };
 
-export default MainContainer;
+export default connect(mapStateToProps)(MainContainer);

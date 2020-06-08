@@ -13,13 +13,13 @@ Displays the currently selected topic of the feed
 const useStyles = makeStyles({
   itemHeader: {
     marginTop: 15,
-    marginBottom: 15
-  }
-})
+    marginBottom: 15,
+  },
+});
 
 const FeedHeader = (props) => {
   const classes = useStyles();
-  const topic = "React";
+  const topic = props.currentTopic;
   return (
     <div>
       <Box className={classes.itemHeader}>
@@ -28,7 +28,7 @@ const FeedHeader = (props) => {
         </Typography>
       </Box>
     </div>
-  )
+  );
 };
 
 export default FeedHeader;

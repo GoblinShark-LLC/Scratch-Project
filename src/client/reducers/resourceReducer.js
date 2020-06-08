@@ -1,4 +1,4 @@
-import * as types from '../constant/actionsTypes';
+import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
@@ -12,11 +12,24 @@ const initialState = {
       liked: false,
     },
   ],
-  currentTopic: '',
-  topics: [],
+  currentTopic: 'Javascript',
+  topics: [
+    'Javascript',
+    'React',
+    'Redux',
+    'Angular',
+    'Vue',
+    'MongoDB',
+    'Jest',
+    'Enzyme',
+    'Puppeteer',
+    'Typescript',
+    'Node',
+    'Express',
+  ],
 };
 
-const resourceReducer = (state, action) => {
+const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
     // Update state with array of resources
     case types.GET_RESOURCE:
@@ -24,15 +37,25 @@ const resourceReducer = (state, action) => {
         ...state,
         resources: action.payload,
       };
+    // Update state with array of resources
+    case types.UPDATE_TOPIC:
+      return {
+        ...state,
+        currentTopic: action.payload,
+      };
     // Update state with array of resources after adding one
     case types.ADD_RESOURCE:
+      console.log(
+        'Im in the add resource front end this is your payload:     ',
+        action.payload
+      );
       return {
         ...state,
         resources: action.payload,
       };
     // Update state with new number of upvotes
     case types.UPVOTE:
-      // Backend returns one object with the updated like count
+      // Backend returns onei object with the updated like count
       // Do we want all resources in a tech instead?
       return {
         ...state,

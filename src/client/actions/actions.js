@@ -1,12 +1,11 @@
 import axios from 'axios';
-import * as types from '../constants/actionsTypes';
+import * as types from '../constants/actionTypes';
 
-const resources;
-// Send get request to server for resource based on name param
+// Send get request to server for resource (tech name) based on name param
 export const getResource = (resource) => {
   return (dispatch) => {
     axios
-      .get('http://localhost:3000/resource/', resource.params)
+      .get(`http://localhost:3000/resource/${resource.toLowerCase()}`)
       .then((response) => {
         dispatch({
           type: types.GET_RESOURCE,
@@ -16,11 +15,22 @@ export const getResource = (resource) => {
   };
 };
 
+// COMMENTS
+export const updateTopic = (topic) => {
+  return (dispatch) => {
+    dispatch({
+      type: types.UPDATE_TOPIC,
+      payload: topic,
+    });
+  };
+};
+
 // Send post request to server to add a new resource
-export const addResource = () => {
+export const addResource = (resource) => {
+  console.log('In the addResource front end:      ', resource);
   return (dispatch) => {
     axios
-      .post('http://localhost:3000/resource/', resource.params)
+      .post(`http://localhost:3000/resource/${resource.name}`, resource)
       .then((response) => {
         dispatch({
           type: types.ADD_RESOURCE,
@@ -31,10 +41,11 @@ export const addResource = () => {
 };
 
 // Send put request to increase like count
-export const addLike = () => {
+export const upvote = (id, tech) => {
+  console.log('This is the id you from the front end     ', id);
   return (dispatch) => {
     axios
-      .put('http://localhost:3000/resource/upvote', resource.params)
+      .put('http://localhost:3000/resource/upvote', { id: id, tech: tech })
       .then((response) => {
         dispatch({
           type: types.UPVOTE,
@@ -43,11 +54,12 @@ export const addLike = () => {
       });
   };
 };
+
 // Send put request to increase like count
-export const downvote = () => {
+export const downvote = (id, tech) => {
   return (dispatch) => {
     axios
-      .put('http://localhost:3000/resource/downvote', resource.params)
+      .put('http://localhost:3000/resource/downvote', { id: id, tech: tech })
       .then((response) => {
         dispatch({
           type: types.DOWNVOTE,

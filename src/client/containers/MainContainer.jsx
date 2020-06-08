@@ -1,7 +1,8 @@
 import React from 'react';
-import { Container, Typography, AppBar } from '@material-ui/core';
+import { Container, Typography, AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'; 
 import NavContainer from './NavContainer'; 
+import FeedContainer from './FeedContainer';
 
 // until we connect to redux/back end
 const dummyState = {
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
   },
+  offset: theme.mixins.toolbar
+  
 })); 
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
@@ -33,7 +36,9 @@ const MainContainer = props => {
         </Typography>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
+      <div className={classes.offset}></div>
       <NavContainer topics={dummyState.topics}/>
+      <FeedContainer />
   </Container>
   
   )

@@ -10,12 +10,38 @@ const pool = new Pool({
 // TWO TABLES IN DATABASE:
 // [PK] = Primary Key [FK] = Foreign Key
 // RESOURCES TABLE: Lists data about each resource
-////  Column names w/ data_type : 
-//////    (_id [PK] : auto-generated, name : string, description : text, url : string, likes : int, tech_id[FK] : int, liked : boolean)
+////  Column names w/ data_type :
+
+//(_id [PK] : auto-generated,
+// name : string,
+//  description : text,
+//   url : string,
+//   likes : int,
+//    tech_id[FK] : int,
+//    liked : boolean)
+
 // TECHS TABLE: Lists each individual tech (i.e. react, redux, jest) and their unique id
 ////   Column names : (_id [PK] : auto-generated, tech : string [lowercase])
 
+// INSERT RESOURCES
 
+/*
+CREATE TABLE resources (
+	resources_id serial PRIMARY KEY,
+	name VARCHAR (100) UNIQUE NOT NULL, 
+	description TEXT NOT NULL,
+	url TEXT UNIQUE NOT NULL,
+	likes INT,
+  tech_id INT, 
+  FOREIGN KEY (resources_id) REFERENCES tech(id)
+);
+
+CREATE TABLE tech (
+  _id serial PRIMARY KEY,
+  tech TEXT 
+);
+
+*/
 
 // Query handler => allows you to query from the database.
 // Connects all queries written in controller to our remote database in elephantSQL

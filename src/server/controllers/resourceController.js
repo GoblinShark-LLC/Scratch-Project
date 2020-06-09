@@ -9,6 +9,7 @@ resourceController.getResources = (req, res, next) => {
   // Tech name can be received one of two ways, depending on where the middleware is called
   let tech_name = req.body.tech || req.params.name;
   // console.log('In the get getresources      ', tech_name);
+  // alternate way of writing this query => 'SELECT * FROM tech JOIN resources ON resources.tech_id = tech._id WHERE tech = $1 ORDER BY likes DESC'
   item = `SELECT resources._id, resources.name, resources.url, resources.likes, resources.description, resources.tech_id, resources.liked, techs.tech FROM resources, techs WHERE techs.tech = $1 and techs._id = resources.tech_id order by likes DESC;`;
   const values = [tech_name];
   db.query(item, values)

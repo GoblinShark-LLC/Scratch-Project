@@ -13,12 +13,14 @@ app.use(express.urlencoded({ extended: true }));
 // Set up routers
 app.use('/resource', resourceRouter);
 
+
+app.use('/', express.static(path.resolve(__dirname, '../../build')));
 // Send main app
-app.get('/', (req, res) => {
-  return res
-    .status(200)
-    .sendFile(path.resolve(__dirname, './client/index.html'));
-});
+// app.get('/', (req, res) => {
+//   return res
+//     .status(200)
+//     .sendFile(path.resolve(__dirname, './client/index.html'));
+// });
 
 // Catch-all route handler
 app.use('*', (req, res) => {

@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 
 import * as actions from '../actions/actions';
+
 /*
 Form to submit a new resource
 */
@@ -65,6 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
 const FeedForm = (props) => {
   const classes = useStyles();
 
+  // gets list of topics to populate our form's select menu items
   const techs = props.techs;
 
   // setting initial form states
@@ -104,6 +106,11 @@ const FeedForm = (props) => {
     setOpen(open ? false : true);
   };
 
+  // called when 'submit' button is clicked
+  // first ensures form is valid by checking that no field is left blank
+  // then calls the appropriate dispatch action passed down as a prop
+  // to add new resource to database
+  // (small delay added before closing modal to simulate a brief 'thinking' period)
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -139,6 +146,7 @@ const FeedForm = (props) => {
     }
   };
 
+  // defines the form that gets populated in our modal
   const formBody = (
     <div className={classes.paper}>
       <Typography variant="h5">Add a Resource</Typography>

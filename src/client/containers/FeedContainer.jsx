@@ -23,14 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// map pass in relevant fields from store as props
+// maps array of resources and current topic from store as props
 
 const mapStateToProps = (state) => ({
   resources: state.resources,
   currentTopic: state.currentTopic,
 });
 
-// pass in function that will make GET request to relevant topic from our DB
+// maps relevant dispatches to functions available as props for
+// getting resources and upvoting / downvoting a particular resource
 
 const mapDispatchToProps = (dispatch) => ({
   getResource: (tech_name) => {
@@ -60,4 +61,5 @@ const FeedContainer = (props) => {
   );
 };
 
+//makes state stored in redux store available to our mapping-to-props functions
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);

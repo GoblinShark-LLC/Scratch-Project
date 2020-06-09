@@ -30,11 +30,9 @@ const useStyles = makeStyles({
 const FeedItem = (props) => {
   const classes = useStyles();
 
-  //dummy react hook to for 'like' state
-  //let [liked, setLiked] = useState(props.liked);
-
+  // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
+  // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
   const toggleHeart = () => {
-    //setLiked(liked ? false : true);
     if (props.liked) {
       props.downvote(props.id, props.tech);
     } else {
@@ -45,21 +43,22 @@ const FeedItem = (props) => {
     <Card className={classes.itemWrap}>
       <CardContent>
         <Box>
-          {/* displays resource title */}
+        {/* displays resource title */}
           <Typography variant="h6">{props.name}</Typography>
         </Box>
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
+        {/* displays resource link */}
           <Button size="small" color="primary">
             <a href={props.url} target="_blank">
               Visit Resource
             </a>
           </Button>
-          {/* toggles the likes for each resource */}
+          {/* toggles heart */}
           <Button size="small" onClick={() => toggleHeart()}>
-            {props.likes}{' '}
+            {props.likes}
             {props.liked ? (
               <FavoriteRoundedIcon />
             ) : (

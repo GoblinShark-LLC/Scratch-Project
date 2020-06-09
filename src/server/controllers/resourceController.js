@@ -4,10 +4,11 @@ const db = require('./../models/resourceModels');
 const resourceController = {};
 
 let item = '';
-// Get all resources from the db based on tech
+// Get all resources from the db based on tech name 
 resourceController.getResources = (req, res, next) => {
+  // Tech name can be received one of two ways, depending on where the middleware is called
   let tech_name = req.body.tech || req.params.name;
-  console.log('In the get getresources      ', tech_name);
+  // console.log('In the get getresources      ', tech_name);
   item = `SELECT resources._id, resources.name, resources.url, resources.likes, resources.description, resources.tech_id, resources.liked, techs.tech FROM resources, techs WHERE techs.tech = $1 and techs._id = resources.tech_id order by likes DESC;`;
   const values = [tech_name];
   db.query(item, values)
@@ -25,7 +26,8 @@ resourceController.getResources = (req, res, next) => {
 
 // Get's the tech id (from post tech name in the request body) to be used in adding a resource
 resourceController.getTechId = (req, res, next) => {
-  console.log('Im in the techid', req.body.tech);
+  // console.log('Im in the techid', req.body.tech);
+  // Tech is the tech name associated with a resource: can be obtained via the body or by locals
   let tech = req.body.tech || res.locals.resourceById.tech;
   item = `SELECT _id FROM techs WHERE tech = $1`;
   const values = [tech];
@@ -49,6 +51,7 @@ resourceController.addResource = (req, res, next) => {
   let { name, description, url } = req.body;
   item = `INSERT INTO resources (name, description, url, likes, tech_id, liked)
     VALUES ($1, $2, $3, 0, $4, false);`;
+  // prevents sql injection
   const values = [name, description, url, techId];
   db.query(item, values)
     .then((query) => {
@@ -67,7 +70,7 @@ resourceController.addResource = (req, res, next) => {
 resourceController.addLike = (req, res, next) => {
   let resourceId = req.body.id;
   console.log('This is your resource id     ', resourceId);
-  // Increase like count by 1 for a resource(id)
+  // Increase like count by 1 for a resource(_id)
   item = `UPDATE resources SET likes = likes + 1, liked = true WHERE _id = $1`;
   const values = [resourceId];
   db.query(item, values)

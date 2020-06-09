@@ -7,3 +7,5 @@ const reducers = combineReducers({
 });
 
 export default reducers;
+
+// Never used this file - consider deleting

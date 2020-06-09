@@ -7,6 +7,10 @@ import FeedItem from '../components/FeedItem';
 
 Renders a container showing all feed items related to a certain topic
 
+A resource's name, id, url, description, likes and liked values are mapped from the resources array that is passed down as a prop from the parent component
+
+Upvote and downvote functions are passed down directly as props from the parent component
+
 */
 
 const FeedItemContainer = (props) => {

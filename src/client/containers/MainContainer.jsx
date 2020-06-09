@@ -1,13 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Container, Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import NavContainer from './NavContainer';
 import FeedContainer from './FeedContainer';
-
-const mapStateToProps = state => {
-  topics: state.topics
-}
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +14,13 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
   },
+  header: {
+    display: 'inline',
+  },
   subHeader: {
     display: 'inline',
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
+    fontSize: 15
   }
 }));
 
@@ -33,19 +32,19 @@ const MainContainer = (props) => {
     <Container maxWidth="lg" className={classes.root}>
       {/* AppBar, where the title of website is, stays on top*/}
       <AppBar position="fixed" className={classes.appBar}>
-        <Typography variant="h4" align="left">
+        <Typography variant="h4" align="left" className={classes.header}>
           {'</DevShark>'}
-          <Typography variant="h6" align="left" className={classes.subHeader}>
+          <Typography variant="inherit" className={classes.subHeader}>
             Developer Resource Aggregator
           </Typography>
         </Typography>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>
-      <NavContainer topics={props.topics} />
+      <NavContainer />
       <FeedContainer />
     </Container>
   );
 };
 
-export default connect(mapStateToProps)(MainContainer);
+export default MainContainer; 

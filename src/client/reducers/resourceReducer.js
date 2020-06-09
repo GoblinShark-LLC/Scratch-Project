@@ -45,26 +45,20 @@ const resourceReducer = (state = initialState, action) => {
       };
     // Update state with array of resources after adding one
     case types.ADD_RESOURCE:
-      console.log(
-        'Im in the add resource front end this is your payload:     ',
-        action.payload
-      );
       return {
         ...state,
         resources: action.payload,
       };
     // Update state with new number of upvotes
     case types.UPVOTE:
-      // Backend returns onei object with the updated like count
-      // Do we want all resources in a tech instead?
+      // Backend returns an array of resource objects with the updated likes for each
       return {
         ...state,
         resources: action.payload,
       };
     // Update state with new number of upvotes
     case types.DOWNVOTE:
-      // Backend returns one object with the updated like count
-      // Do we want all resources in a tech instead?
+      // Backend returns one an array of resource objects with updated likes for each
       return {
         ...state,
         resources: action.payload,

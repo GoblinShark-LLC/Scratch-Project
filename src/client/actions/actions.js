@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
-// Send get request to server for resource (tech name) based on name param
+// Send get request to server for resource (tech name)
+// Input: resource name
 export const getResource = (resource) => {
   return (dispatch) => {
     axios
@@ -15,7 +16,8 @@ export const getResource = (resource) => {
   };
 };
 
-// COMMENTS
+// Update the current topic to be rendered on screen (used once for initial load)
+// Input: current topic (fetched from props)
 export const updateTopic = (topic) => {
   return (dispatch) => {
     dispatch({
@@ -26,8 +28,8 @@ export const updateTopic = (topic) => {
 };
 
 // Send post request to server to add a new resource
+// Input: resource name in the parameter and resource object to add to DB in body
 export const addResource = (resource) => {
-  console.log('In the addResource front end:      ', resource);
   return (dispatch) => {
     axios
       .post(`http://localhost:3000/resource/${resource.name}`, resource)
@@ -41,8 +43,8 @@ export const addResource = (resource) => {
 };
 
 // Send put request to increase like count
+// Input: Id of the resource and the technology associated with the resource
 export const upvote = (id, tech) => {
-  console.log('This is the id you from the front end     ', id);
   return (dispatch) => {
     axios
       .put('http://localhost:3000/resource/upvote', { id: id, tech: tech })
@@ -56,6 +58,7 @@ export const upvote = (id, tech) => {
 };
 
 // Send put request to increase like count
+// Input: Id of the resource and the technology associated with the resource
 export const downvote = (id, tech) => {
   return (dispatch) => {
     axios

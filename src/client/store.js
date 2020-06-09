@@ -5,8 +5,8 @@ import resourceReducer from './reducers/resourceReducer';
 
 const middlewares = [thunk];
 
-// pass in our only reducer file to createStore function
-// exporting a store to be used in Provider wrapping our App
+// Pass in our only reducer file to createStore function
+// Exporting a store to be used in Provider wrapping our App
 const store = createStore(
   resourceReducer,
   composeWithDevTools(applyMiddleware(...middlewares))

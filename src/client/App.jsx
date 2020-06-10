@@ -30,7 +30,7 @@ const App = ({store}) => {
         <Router>
           <Switch>
             <Route exact path="/" component={MainContainer}/>
-            {/* <Route exact path="/login" component={UserLogin}/> */}
+            <Route exact path="/login" component={UserLogin}/>
             {/* <Route exact path="/signup" component={UserSignUp}/>  */}
           </Switch>
         </Router>

@@ -1,3 +1,4 @@
+export const GET_TOPICS = 'GET TOPICS';
 export const GET_RESOURCE = 'GET RESOURCE';
 export const UPDATE_TOPIC = 'UPDATE TOPIC';
 export const ADD_RESOURCE = 'ADD RESOURCE';

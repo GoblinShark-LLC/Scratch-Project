@@ -13,24 +13,17 @@ const initialState = {
     },
   ],
   currentTopic: 'Javascript',
-  topics: [
-    'Javascript',
-    'React',
-    'Redux',
-    'Angular',
-    'Vue',
-    'MongoDB',
-    'Jest',
-    'Enzyme',
-    'Puppeteer',
-    'Typescript',
-    'Node',
-    'Express',
-  ],
+  topics: [],
 };
 
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Update state with array of topics
+    case types.GET_TOPICS:
+      return {
+        ...state,
+        topics: action.payload,
+      };
     // Update state with array of resources
     case types.GET_RESOURCE:
       return {

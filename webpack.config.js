@@ -10,6 +10,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'src/client'),
+    historyApiFallback: true,
     proxy: {
       '/resource' : 'http://localhost:3000',
       hot: true

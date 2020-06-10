@@ -1,8 +1,8 @@
 const { Pool } = require('pg');
 // Link to resources database on elephantSQL
 const PG_URI =
-  'postgres://ondxptpk:A2iAcCDwhK8u_DJk6tkB9H5SEHLCbjRk@ruby.db.elephantsql.com:5432/ondxptpk';
-
+  // 'postgres://ondxptpk:A2iAcCDwhK8u_DJk6tkB9H5SEHLCbjRk@ruby.db.elephantsql.com:5432/ondxptpk';
+  `	postgres://slbtcpev:LYK3KUB_Fn-7f5Z5cyQ0Q8CfJwtGKgRb@ruby.db.elephantsql.com:5432/slbtcpev`;
 const pool = new Pool({
   connectionString: PG_URI,
 });
@@ -29,16 +29,49 @@ const pool = new Pool({
 CREATE TABLE resources (
 	resources_id serial PRIMARY KEY,
 	name VARCHAR (100) UNIQUE NOT NULL, 
-	description TEXT NOT NULL,
-	url TEXT UNIQUE NOT NULL,
+	description VARCHAR NOT NULL,
+	url VARCHAR UNIQUE NOT NULL,
 	likes INT,
   tech_id INT, 
-  FOREIGN KEY (resources_id) REFERENCES tech(id)
+  FOREIGN KEY (resources_id) REFERENCES tech(_id)
 );
 
-CREATE TABLE tech (
-  _id serial PRIMARY KEY,
-  tech TEXT 
+CREATE TABLE techs (
+  techs_id serial PRIMARY KEY,
+  tech VARCHAR (50)
+);
+
+CREATE TABLE users (
+users_id serial PRIMARY KEY,
+email VARCHAR UNIQUE NOT NULL,
+password VARCHAR NOT NULL,
+favorites INT,
+FOREIGN KEY (favorites) REFERENCES favorites(_id)
+);
+
+CREATE TABLE favorites (
+favorites_id serial PRIMARY KEY,
+users_id INT,
+resources_id INT
+FOREIGN KEY (user_id) REFERENCES users(users_id),
+FOREIGN KEY (resource_id) REFERENCES resources(resources_id)
+);
+
+
+CREATE TABLE upvotes (
+  upvotes_id serial PRIMARY KEY,
+  users_id INT,
+  resources_id INT,
+  FOREIGN KEY (users_id) REFERENCES users(users_id),
+  FOREIGN KEY (resources_id) REFERENCES resources(resources_id)
+);
+
+CREATE TABLE downvotes (
+  downvotes_id serial PRIMARY KEY,
+  users_id FOREIGN KEY,
+  resources_id INT,
+  FOREIGN KEY (users_id) REFERENCES users(users_id),
+  FOREIGN KEY (resources_id) REFERENCES resources(resources_id)
 );
 
 */

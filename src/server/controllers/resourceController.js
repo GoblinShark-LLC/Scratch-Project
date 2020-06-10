@@ -4,7 +4,7 @@ const db = require('./../models/resourceModels');
 const resourceController = {};
 
 let item = '';
-// Get all resources from the db based on tech name 
+// Get all resources from the db based on tech name
 resourceController.getResources = (req, res, next) => {
   // Tech name can be received one of two ways, depending on where the middleware is called
   let tech_name = req.body.tech || req.params.name;
@@ -30,6 +30,7 @@ resourceController.getTechId = (req, res, next) => {
   // console.log('Im in the techid', req.body.tech);
   // Tech is the tech name associated with a resource: can be obtained via the body or by locals
   let tech = req.body.tech || res.locals.resourceById.tech;
+  console.log('tech is ->', tech);
   item = `SELECT _id FROM techs WHERE tech = $1`;
   const values = [tech];
   db.query(item, values)

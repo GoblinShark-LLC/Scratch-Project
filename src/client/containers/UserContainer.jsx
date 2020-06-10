@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Typography, AppBar, Button } from '@material-ui/core';
+import { Container, Typography, AppBar, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NavContainer from './NavContainer';
-import FeedContainer from './FeedContainer';
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +19,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline',
     width: "100%",
   },
+  itemHeader: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
   subHeader: {
     display: 'inline',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     fontSize: 15
+  },
+  shiftDown: {
+    marginTop: theme.spacing(10),
   },
   button1:{
     underline: 'none',
@@ -32,16 +38,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(7),
     align: 'inherit'|'right',
   },
-  button2:{
-    underline: 'none',
-    display: 'inline',
-    marginLeft: theme.spacing(2),
-    align: 'inherit'|'right',
-  }
 }));
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
-const MainContainer = (props) => {
+const UserContainer = (props) => {
   const classes = useStyles();
   // functions as css-reset
   return (
@@ -53,20 +53,25 @@ const MainContainer = (props) => {
           <Typography variant="inherit" className={classes.subHeader}>
             Developer Resource Aggregator
           </Typography>
-          <NavLink to="/login" style={{ textDecoration: 'none', display: 'inline'}}>
-            <Button variant="contained" color="primary" className={classes.button1}>Login</Button>
-          </NavLink>
-          <NavLink to="/signup" style={{ textDecoration: 'none', display: 'inline'}}>
-            <Button variant="contained" color="primary" className={classes.button2}>Sign in</Button>
+          <NavLink to="/" style={{ textDecoration: 'none', display: 'inline'}}>
+            <Button variant="contained" color="primary" className={classes.button1}>Sign out</Button>
           </NavLink>
         </Typography>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>
       <NavContainer />
-      <FeedContainer />
+    <div className={classes.shiftDown}>
+      <div>
+      <Box className={classes.itemHeader}>
+        <Typography variant="h4" component="h4" align="center">
+          {'What would you like to research?'}
+        </Typography>
+      </Box>
+      </div>
+    </div>
     </Container>
   );
 };
 
-export default MainContainer; 
+export default UserContainer; 

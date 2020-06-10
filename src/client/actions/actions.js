@@ -1,6 +1,60 @@
 import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
+// Send get request to server for get user history from the database
+// Input: userInfo is a object with user_name, token, password
+// export const login = (userInfo) => {
+//   if(userInfo.token !== null){
+//     return (dispatch) => {
+//       axios
+//       .get(`http://localhost:3000/oauth/github/`, userInfo)
+//       .then((response) => {
+//         dispatch({
+//           type: types.LOGIN,
+//           payload: response.data,
+//         });
+//       });
+//   }} else {
+//     return (dispatch) => {
+//       axios
+//       .get(`http://localhost:3000/auth/user/`, userInfo)
+//       .then((response) => {
+//         dispatch({
+//           type: types.LOGIN,
+//           payload: response.data,
+//         });
+//       });
+//     }
+//   }
+// };
+
+// // Send post request to server for add user to the database
+// // Input: userInfo is a object with user_name, icon, email, token, password
+// export const signIn = (userInfo) => {
+//   if(userInfo.token !== null){
+//     return (dispatch) => {
+//       axios
+//       .post(`http://localhost:3000/oauth/github/`, userInfo)
+//       .then((response) => {
+//         dispatch({
+//           type: types.SIGN_IN,
+//           payload: response.data,
+//         });
+//       });
+//   }} else {
+//     return (dispatch) => {
+//       axios
+//       .post(`http://localhost:3000/auth/user/`, userInfo)
+//       .then((response) => {
+//         dispatch({
+//           type: types.SIGN_IN,
+//           payload: response.data,
+//         });
+//       });
+//     }
+//   }
+// };
+
 // Send get request to server for resource (tech name)
 // Input: resource name
 export const getResource = (resource) => {

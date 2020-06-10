@@ -47,9 +47,8 @@ authController.getVerification = (req, res, next) => {
           token: null,
         }
         return next()
-    })})
-
-  }).catch(err => next({
+  })})})
+  .catch(err => next({
       log: 'Error in authController.getVerification',
       status: 400,
       message: err,

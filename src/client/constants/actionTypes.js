@@ -1,5 +1,8 @@
-export const GET_RESOURCE = 'GET RESOURCE';
-export const UPDATE_TOPIC = 'UPDATE TOPIC';
-export const ADD_RESOURCE = 'ADD RESOURCE';
-export const UPVOTE = 'UPVOTE';
-export const DOWNVOTE = 'DOWNVOTE';
+export const LOGIN = 'login';
+export const SIGN_IN = 'signIn';
+export const GET_RESOURCE = 'getResource';
+export const UPDATE_TOPIC = 'updateTopic';
+export const ADD_RESOURCE = 'addResource';
+export const UPVOTE = 'upvote';
+export const DOWNVOTE = 'downvote';
+

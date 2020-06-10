@@ -2,6 +2,9 @@ import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
+  user : [],
+  comments: [], 
+  likes: [],
   resources: [
     {
       name: '',
@@ -31,6 +34,18 @@ const initialState = {
 
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Update state with array of user informnation
+    case types.LOGIN:
+      return {
+        ...state,
+        user: action.payload,
+    };
+    // Update state with array of user informnation
+    case types.SIGN_IN:
+      return {
+      ...state,
+      user: action.payload,
+    };
     // Update state with array of resources
     case types.GET_RESOURCE:
       return {

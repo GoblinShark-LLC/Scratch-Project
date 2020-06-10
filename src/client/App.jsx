@@ -8,6 +8,7 @@ import blue from '@material-ui/core/colors/blue';
 import { CssBaseline } from '@material-ui/core';
 
 import MainContainer from './containers/MainContainer';
+import UserContainer from './containers/UserContainer';
 import UserLogin from './containers/UserLogin';
 import UserSignUp from './containers/UserSignUp';
 
@@ -30,8 +31,9 @@ const App = ({store}) => {
         <Router>
           <Switch>
             <Route exact path="/" component={MainContainer}/>
-            {/* <Route exact path="/login" component={UserLogin}/> */}
-            {/* <Route exact path="/signup" component={UserSignUp}/>  */}
+            <Route exact path="/user" component={UserContainer}/>
+            <Route exact path="/login" component={UserLogin}/>
+            <Route exact path="/signup" component={UserSignUp}/>
           </Switch>
         </Router>
       </ThemeProvider>

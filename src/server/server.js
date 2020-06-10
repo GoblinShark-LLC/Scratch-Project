@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
+// const authRouter = require('./routes/authRouter');
 const PORT = 3000;
 const cors = require('cors');
 
@@ -12,9 +13,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set up routers
 app.use('/resource', resourceRouter);
+// app.use('/auth', authRouter);
 
 // Send main app
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   return res
     .status(200)
     .sendFile(path.resolve(__dirname, './client/index.html'));

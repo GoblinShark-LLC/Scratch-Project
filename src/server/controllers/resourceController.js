@@ -25,8 +25,8 @@ resourceController.getResources = (req, res, next) => {
     );
 };
 
+// fetch from techs table all tech topics as an array and put it into res.locals.topics
 resourceController.getTopics = (req, res, next) => {
-  // fetch from techs table all tech topics as an array and put it into res.locals.topics
   item = `SELECT techs.tech FROM techs`;
   db.query(item)
     .then((query) => {

@@ -31,14 +31,12 @@ export const updateTopic = (topic) => {
 // Input: resource name in the parameter and resource object to add to DB in body
 export const addResource = (resource) => {
   return (dispatch) => {
-    axios
-      .post(`http://localhost:3000/resource/${resource.name}`, resource)
-      .then((response) => {
-        dispatch({
-          type: types.ADD_RESOURCE,
-          payload: response.data,
-        });
+    axios.post(`http://localhost:3000/resource/`, resource).then((response) => {
+      dispatch({
+        type: types.ADD_RESOURCE,
+        payload: response.data,
       });
+    });
   };
 };
 

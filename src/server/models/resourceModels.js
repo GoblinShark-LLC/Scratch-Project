@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 // Link to resources database on elephantSQL
 const PG_URI =
   // 'postgres://ondxptpk:A2iAcCDwhK8u_DJk6tkB9H5SEHLCbjRk@ruby.db.elephantsql.com:5432/ondxptpk';
-  `	postgres://slbtcpev:LYK3KUB_Fn-7f5Z5cyQ0Q8CfJwtGKgRb@ruby.db.elephantsql.com:5432/slbtcpev`;
+  `postgres://slbtcpev:LYK3KUB_Fn-7f5Z5cyQ0Q8CfJwtGKgRb@ruby.db.elephantsql.com:5432/slbtcpev`;
 const pool = new Pool({
   connectionString: PG_URI,
 });
@@ -33,7 +33,7 @@ CREATE TABLE resources (
 	url VARCHAR UNIQUE NOT NULL,
 	likes INT,
   tech_id INT, 
-  FOREIGN KEY (resources_id) REFERENCES tech(_id)
+  FOREIGN KEY (tech_id) REFERENCES techs(techs_id)
 );
 
 CREATE TABLE techs (
@@ -46,17 +46,22 @@ users_id serial PRIMARY KEY,
 email VARCHAR UNIQUE NOT NULL,
 password VARCHAR NOT NULL,
 favorites INT,
-FOREIGN KEY (favorites) REFERENCES favorites(_id)
+FOREIGN KEY (favorites) REFERENCES favorites(favorites_id)
 );
+
+// When adding tables that reference each other, you must omit 
+// FOREIGN KEY line and add it after both tables are created
 
 CREATE TABLE favorites (
 favorites_id serial PRIMARY KEY,
 users_id INT,
-resources_id INT
+resources_id INT,
 FOREIGN KEY (user_id) REFERENCES users(users_id),
 FOREIGN KEY (resource_id) REFERENCES resources(resources_id)
 );
 
+ALTER TABLE users 
+ADD CONSTRAINT <anyName> FOREIGN KEY (favorites) REFERENCES favorites(favorites_id);
 
 CREATE TABLE upvotes (
   upvotes_id serial PRIMARY KEY,
@@ -68,10 +73,8 @@ CREATE TABLE upvotes (
 
 CREATE TABLE downvotes (
   downvotes_id serial PRIMARY KEY,
-  users_id FOREIGN KEY,
-  resources_id INT,
-  FOREIGN KEY (users_id) REFERENCES users(users_id),
-  FOREIGN KEY (resources_id) REFERENCES resources(resources_id)
+  users_id INT REFERENCES users(users_id),
+  resources_id INT REFERENCES resources(resources_id)
 );
 
 */

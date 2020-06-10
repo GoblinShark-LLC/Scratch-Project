@@ -7,22 +7,18 @@ import {
 } from 'react-router-dom';
 
 import MainContainer from './containers/MainContainer';
-import Login from './containers/LoginContainer'
 
 // Return the App, rendering the MainContainer within it
 const App = () => {
 
-  return(
-    <Router>
-      <Switch>
-        <Route path="/main">
-          <MainContainer />
-        </Route>
-        <Route path="/">
-          <Login />
-        </Route>
-      </Switch>
-    </Router>
+  return (
+    <Switch>
+
+      <Route path="/">
+        <MainContainer />
+      </Route>
+
+    </Switch>
   )
 };
 

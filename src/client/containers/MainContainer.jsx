@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, AppBar } from '@material-ui/core';
+import { Container, Typography, AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import NavContainer from './NavContainer';
 import FeedContainer from './FeedContainer';
@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   },
   // header of entire app spans across the top
   appBar: {
+    display: 'flex',
+    flexDirection: 'row',
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
   },
@@ -21,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline',
     marginLeft: theme.spacing(2),
     fontSize: 15
+  },
+  loginButton: {
+    display: 'inline',
+    marginLeft: '50%'
   }
 }));
 
@@ -37,9 +43,11 @@ const MainContainer = (props) => {
         <Typography variant="h4" align="left" className={classes.header}>
           {'</DevShark>'}
           <Typography variant="inherit" className={classes.subHeader}>
-            Developer Resource Aggregator
-          </Typography>
+          Developer Resource Aggregator
         </Typography>
+        </Typography>
+
+          <Button variant="contained" color="primary" className={classes.loginButton}>Login</Button>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>

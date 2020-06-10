@@ -1,6 +1,19 @@
 import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
+// Send a get request to server to retrieve topics
+export const getTopics = () => {
+  return (dispatch) => {
+    axios.get('/resource/getTopics').then((response) => {
+      console.log('Response in getTopics is ', response.data);
+      dispatch({
+        type: types.GET_TOPICS,
+        payload: response.data,
+      });
+    });
+  };
+};
+
 // Send get request to server for resource (tech name)
 // Input: resource name
 export const getResource = (resource) => {

@@ -2,6 +2,10 @@ const express = require('express');
 const resourceController = require('../controllers/resourceController');
 const router = express.Router();
 
+router.get('/getTopics', resourceController.getTopics, (req, res) => {
+  return res.status(200).json(res.locals.topics);
+});
+
 // when name (tech_name) is triggered
 // return array of resources for that tech(i.e. React) from database
 // send results to front-end( store in state)

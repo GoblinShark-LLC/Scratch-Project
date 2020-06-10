@@ -7,14 +7,13 @@ let item = '';
 // Get all resources from the db based on tech name
 resourceController.getResources = (req, res, next) => {
   // Tech name can be received one of two ways, depending on where the middleware is called
-  let tech_name = req.body.tech;
-  // || req.params.name;
+  let tech_name = req.body.tech || req.params.name;
   // alternate way of writing this query => 'SELECT * FROM tech JOIN resources ON resources.tech_id = tech._id WHERE tech = $1 ORDER BY likes DESC'
   item = `SELECT r.resources_id, r.name, r.description, r.url, r.likes, r.tech_id, t.tech FROM resources r, techs t WHERE t.tech = $1 and t.techs_id = r.tech_id order by likes DESC;`;
   const values = [tech_name];
   db.query(item, values)
     .then((query) => {
-      console.log('query.rows ->', query.rows);
+      //console.log('query.rows for getResources ->', query.rows);
       res.locals.resources = query.rows;
       return next();
     })
@@ -22,6 +21,25 @@ resourceController.getResources = (req, res, next) => {
       next({
         log: 'ERROR in resourceControllers.getResources',
         message: { err: `ERROR in getResources ${err}` },
+      })
+    );
+};
+
+resourceController.getTopics = (req, res, next) => {
+  // fetch from techs table all tech topics as an array and put it into res.locals.topics
+  item = `SELECT techs.tech FROM techs`;
+  db.query(item)
+    .then((query) => {
+      //console.log('Query.rows for getTopics', query.rows);
+      const topics = query.rows.map((techObject) => techObject.tech);
+      //console.log('topics array in getTopics controller should be ', topics);
+      res.locals.topics = topics;
+      return next();
+    })
+    .catch((err) =>
+      next({
+        log: 'ERROR in resourceControllers.getTopics',
+        message: { err: `ERROR in getTopics ${err}` },
       })
     );
 };

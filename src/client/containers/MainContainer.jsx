@@ -3,6 +3,7 @@ import { Container, Typography, AppBar, Tabs, Tab, Button } from '@material-ui/c
 import { makeStyles } from '@material-ui/core/styles';
 import NavContainer from './NavContainer';
 import FeedContainer from './FeedContainer';
+import Login from '../components/Login';
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +47,8 @@ const MainContainer = (props) => {
           Developer Resource Aggregator
         </Typography>
         </Typography>
-
-          <Button variant="contained" color="primary" className={classes.loginButton}>Login</Button>
+        <Login variant="contained" color="primary" className={classes.loginButton}/>
+        {/*<Button variant="contained" color="primary" className={classes.loginButton}>Login</Button>*/}
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>

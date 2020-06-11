@@ -35,16 +35,22 @@ const initialState = {
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
     // Update state with array of user informnation
-    case types.LOGIN:
+    case types.SIGN_IN:
       return {
         ...state,
         user: action.payload,
     };
     // Update state with array of user informnation
-    case types.SIGN_IN:
+    case types.SIGN_UP:
       return {
       ...state,
       user: action.payload,
+    };
+    // Update state with array of user informnation
+    case types.SIGN_OUT:
+      return {
+      ...state,
+      user: [],
     };
     // Update state with array of resources
     case types.GET_RESOURCE:

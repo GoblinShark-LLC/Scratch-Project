@@ -1,7 +1,6 @@
 const { Pool } = require('pg');
 // Link to resources database on elephantSQL
-const PG_URI =
-  'postgres://ondxptpk:A2iAcCDwhK8u_DJk6tkB9H5SEHLCbjRk@ruby.db.elephantsql.com:5432/ondxptpk';
+const PG_URI='postgres://umriocsl:nGIEWLf-K0swL0kOUS8gY0r3d3c0RFxS@ruby.db.elephantsql.com:5432/umriocsl';
 
 const pool = new Pool({
   connectionString: PG_URI,

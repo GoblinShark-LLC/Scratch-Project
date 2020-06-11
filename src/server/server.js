@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
-// const authRouter = require('./routes/authRouter');
+const authRouter = require('./routes/authRouter');
 // const oauthRouter = require('./routes/oauthRouter');
 const PORT = 3000;
 const cors = require('cors');
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set up routers
 app.use('/resource', resourceRouter);
-// app.use('/auth', authRouter);
+app.use('/resource/auth', authRouter);
 
 // Send main app
 app.get('/*', (req, res) => {

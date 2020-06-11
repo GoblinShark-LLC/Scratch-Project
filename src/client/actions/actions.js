@@ -113,3 +113,19 @@ export const getComments = (resourceId) => {
       });
   };
 };
+
+export const addComment = (userId, resourceId, body) => {
+  return (dispatch) => {
+    // need to check how to pass basic string
+    axios
+      .post(`http://localhost:8080/comments/${userId}/${resourceId}`, {
+        body: body,
+      })
+      .then((response) => {
+        dispatch({
+          type: types.ADD_COMMENT,
+          payload: { resourceId: response.newComment[0] },
+        });
+      });
+  };
+};

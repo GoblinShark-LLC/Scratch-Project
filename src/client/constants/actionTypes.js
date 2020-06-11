@@ -8,4 +8,5 @@ export const UPVOTE = 'upvote';
 export const DOWNVOTE = 'downvote';
 export const LIKEFUNC = 'likeFunc';
 export const GET_COMMENTS = 'GET_COMMENTS'; 
+export const ADD_COMMENT = 'addComment'
 

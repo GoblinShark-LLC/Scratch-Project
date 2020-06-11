@@ -4,6 +4,7 @@ const app = express();
 const resourceRouter = require('./routes/resourceRouter');
 const commentsRouter = require('./routes/commentsRouter');
 // const authRouter = require('./routes/authRouter');
+// const oauthRouter = require('./routes/oauthRouter');
 const PORT = 3000;
 const cors = require('cors');
 

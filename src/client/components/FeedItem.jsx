@@ -128,8 +128,8 @@ const FeedItem = (props) => {
         {/* visibility of comments dependent on whether user has made get request */}
         {commentsVisible 
           ? props.comments[props.id]
-          ? <Comments fetching={false} comments={} /> 
-          : <Comments fetching={true} comments={}/>
+          ? <Comments fetching={false} comments={props.comments[props.id]} /> 
+          : <Comments fetching={true} comments={null}/>
           :''
         } 
 

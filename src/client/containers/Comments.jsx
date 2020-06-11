@@ -6,7 +6,7 @@ import Comment from '../components/Comment';
 
 const Comments = ({ comments, fetching }) => {
 
-  const commentsList; 
+  let commentsList; 
 
   if (fetching) {
     // render loading message if currently fetching data

@@ -1,5 +1,5 @@
 const db = require('./../models/resourceModels'); 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const authController = {};
@@ -13,10 +13,10 @@ authController.cryptUserInformation = (req, res, next) => {
   .then(hash => {
     console.log(`Hash: ${hash}`);
     res.locals.user = {
-      user_name: req.body.user_name,
+      user_name: req.body.username,
       icon: req.body.icon,
       email: req.body.email,
-      token: null,
+      token: req.body.token,
       password: hash,
     }
     return next()
@@ -30,12 +30,13 @@ authController.cryptUserInformation = (req, res, next) => {
 };
 
 authController.getVerification = (req, res, next) => {
-  const { username, password } = req.body;
+  console.log('this is req.body from login', req.body.username)
+  const username = req.body.username;
+  const password = req.body.password;
   const values = [username];
-  const queryText = `
-    SELECT password from users WHERE user_name = $1;
-  `;
-  db.query(queryText, values)
+  console.log('this is values from login', username)
+  const query = `SELECT password FROM users WHERE user_name = $1;`
+  db.query(query, values)
   .then(data => {
     const dbPassword = data.rows[0]
     

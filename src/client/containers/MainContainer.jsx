@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: 'inline',
+    width: "100%",
   },
   subHeader: {
     display: 'inline',
     marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     fontSize: 15
   },
 }));

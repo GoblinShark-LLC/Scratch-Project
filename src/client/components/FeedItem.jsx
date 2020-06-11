@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   itemWrap: {
     background: '#fdfdfd',
     marginBottom: 15,
-    minWidth: 350,
+    minWidth: 640,
   },
   itemActions: {
     justifyContent: 'space-between',
@@ -32,11 +32,12 @@ const useStyles = makeStyles({
     marginTop: 8,
     marginBottom: 8,
   },
-  // embed: {
-  //   width: 300,
-  //   height: 100,
-  // }
+  embed: {
+    width: 300,
+    height: 100,
+  }
 });
+
 
 // GET COMMENTS, this will make a GET request in actions folder, which will then populate the store with comment info
 // that info will flow down into each comment component 
@@ -84,6 +85,20 @@ const FeedItem = (props) => {
     }
   };
 
+  let displayVideo;
+    switch(props.url.includes('youtube.com/')) {
+      case true :
+        displayVideo = (
+        <div>
+          <iframe width="640" height="360" src={props.url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+        </div>
+        )
+      break;
+      default:
+        displayVideo = (
+          <div></div>
+        )
+    }
   let displayLikes;
     switch(user) {
       case false :
@@ -136,12 +151,10 @@ const FeedItem = (props) => {
               Visit Resource
             </a>
           </Button>
-          {/* <embed
-          src={props.url} 
-          className={classes.embed}></embed> */}
           {displayLikes}
         </div>
       </CardContent>
+      {displayVideo}
     </Card>
   );
 };

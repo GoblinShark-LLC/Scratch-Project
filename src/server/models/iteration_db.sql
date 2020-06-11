@@ -83,10 +83,7 @@ ALTER TABLE public.likes ADD CONSTRAINT "likes_fk1" FOREIGN KEY ("user_id") REFE
 
 -- WANT TO NEUTRAL TO LIKED, AND SEE OVERALL LIKE COUNT GO UP BY ONE
 -- TRANSACTION ("Neutral to Liked")
--- BEGIN;
--- INSERT INTO likes (liked, resource_id, user_id) VALUES (true, 3, 3);
--- UPDATE resources SET likes = likes + 1 WHERE _id = 3;
--- COMMIT; 
+-- BEGIN; INSERT INTO likes (liked, resource_id, user_id) VALUES (true, 3, 3); UPDATE resources SET likes = likes + 1 WHERE _id = 3; COMMIT; 
 
 -- WANT TO GO FROM LIKED TO NEUTRAL, AND SEE OVERALL LIKE COUNT GO DOWN BY ONE
 -- TRANSACTION ("Neutral to Liked")
@@ -96,10 +93,7 @@ ALTER TABLE public.likes ADD CONSTRAINT "likes_fk1" FOREIGN KEY ("user_id") REFE
 -- COMMIT; 
 
 -- WANT TO GO FROM NEUTRAL TO DISLIKED, AND SEE OVERALL LIKE COUNT GO DOWN BY ONE
--- BEGIN;
--- INSERT INTO likes (liked, resource_id, user_id) VALUES (false, 3, 3);
--- UPDATE resources SET likes = likes - 1 WHERE _id = 3;
--- COMMIT; 
+-- BEGIN; INSERT INTO likes (liked, resource_id, user_id) VALUES (false, 3, 3); UPDATE resources SET likes = likes - 1 WHERE _id = 3; COMMIT; 
 
 -- WANT TO GO FROM DISLIKED TO NEUTRAL, AND SEE OVERALL LIKE COUNT GO UP BY ONE
 -- BEGIN;

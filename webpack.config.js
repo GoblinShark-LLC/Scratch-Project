@@ -13,6 +13,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/resource' : 'http://localhost:3000',
+      '/comments' : 'http://localhost:3000',
       hot: true
     }
   },

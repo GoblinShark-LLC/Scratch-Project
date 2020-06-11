@@ -2,20 +2,22 @@ import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
- 
   user : false,
   comments: [], 
   likes: [],
   resources: [
     {
+      _id: 0,
       name: '',
-      id: 0,
-      likes: 0,
       url: '',
+      likes: 0,
+      tech: '',
       description: '',
+      creayed_at: '',
       liked: false,
     },
   ],
+  feed: false,
   currentTopic: 'Javascript',
   topics: [
     'Javascript',
@@ -39,19 +41,19 @@ const resourceReducer = (state = initialState, action) => {
     case types.SIGN_IN:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.data.user,
     };
     // Update state with array of user informnation
     case types.SIGN_UP:
       return {
       ...state,
-      user: action.payload,
+      user: action.payload.data.user,
     };
     // Update state with array of user informnation
     case types.SIGN_OUT:
       return {
       ...state,
-      user: [],
+      user: false,
     };
     // Update state with array of resources
     case types.GET_RESOURCE:
@@ -63,6 +65,7 @@ const resourceReducer = (state = initialState, action) => {
     case types.UPDATE_TOPIC:
       return {
         ...state,
+        feed: true,
         currentTopic: action.payload,
       };
     // Update state with array of resources after adding one

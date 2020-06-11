@@ -41,10 +41,11 @@ userController.postUserInformation =(req,res,next) => {
 }
 
 userController.getUserInformation = (req, res, next) => {
-  let {user_name, password, token} = req.local.user;
+  let {user_name, password, token} = res.locals.user;
   // need to decide what info we want from user
-  const query = `SELECT _id user_name icon email FROM users WHERE user_name = $1 password = $2 token = $3`;
-  const values = [user_name, password, token];
+  const query = `SELECT * FROM users WHERE user_name = $1;`
+  const values = [user_name];
+  console.log(values)
   db.query(query, values)
   .then((data) => {
     console.log('this is data from getUserInformation', data)

@@ -3,7 +3,12 @@ const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
 const authRouter = require('./routes/authRouter');
+<<<<<<< HEAD
 const commentsRouter = require('./routes/commentsRouter');
+=======
+const testRouter = require('./routes/testRouter');
+// const commentsRouter = require('./routes/commentsRouter');
+>>>>>>> f15bd8dc3512177a2a4ff709ab74704ffb4365b7
 // const oauthRouter = require('./routes/oauthRouter');
 const PORT = 3000;
 const cors = require('cors');
@@ -14,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Set up routers
+app.use('/resource/test', testRouter);
 app.use('/resource/auth', authRouter);
 app.use('/comments', commentsRouter);
 app.use('/resource', resourceRouter);

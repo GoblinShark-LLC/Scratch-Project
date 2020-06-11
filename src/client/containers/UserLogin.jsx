@@ -47,49 +47,58 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    padding: theme.spacing(2),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logoBox: {
+    flexDirection: 'column',
+  },
+  navButton: {
+    marginRight: theme.spacing(1),
+  },
+  header: {
+    display: 'inline',
+  },
+  subHeader: {
+    display: 'inline',
+    marginLeft: theme.spacing(2),
+    fontSize: 15
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
   paper: {
     marginTop: theme.spacing(20),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },  
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    padding: theme.spacing(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  subHeader: {
-    display: 'inline',
+  greetingMessage: {
     marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    fontSize: 15
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  spacer: {
-      width: "61%",
-  },
+//   spacer: {
+//       width: "61%"
+//   },
 }));
 
 export default function Login() {
   const classes = useStyles();
   const greetings = [
-      "Greetings, Traveller.", 
-      "We've Waited a Lifetime for You.", 
-      "おかえり", 
-      "Ah Suuuuh Dud.", 
-      "Well Come on in, Friend.",
+      "Happy Days.",
+      "おかえり",
+      "So Pumped to Have You Back.",
       "お久しぶりですね!"
     ];
 
@@ -97,24 +106,33 @@ export default function Login() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        <Typography variant="h4" align="left" className={classes.header}>
-          {'</DevShark>'}
-        </Typography>
-        <Typography variant="inherit" className={classes.subHeader}>
-            Developer Resource Aggregator
-        </Typography>
-        <pre className={classes.spacer}></pre>
+        <div className={classes.logoBox}>
+            <Typography variant="h4" align="left" className={classes.header}>
+            {'</DevShark>'}
+            </Typography>
+            <Typography variant="inherit" className={classes.subHeader}>
+                Developer Resource Aggregator
+            </Typography>
+        </div>
+        {/* <pre className={classes.spacer}></pre> */}
+        <div>
         <NavLink to='/' style={{ textDecoration: 'none' }}>
-          <Button className={classes.rightButton} variant="contained" color="primary">
-            Back to Homepage
+          <Button className={classes.navButton} variant="outlined" color="secondary">
+            Home
           </Button>
         </NavLink>
+        <NavLink to='/signup' style={{ textDecoration: 'none' }}>
+          <Button className={classes.navButton} variant="contained" color="secondary">
+            Sign Up
+          </Button>
+        </NavLink> 
+        </div>
       </AppBar>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className={classes.greetingMessage}>
           {greetings[Math.floor(Math.random() * greetings.length)]}
         </Typography>
         <form className={classes.form} noValidate>
@@ -158,7 +176,7 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="./signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

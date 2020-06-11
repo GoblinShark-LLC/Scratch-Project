@@ -67,7 +67,7 @@ export default function SignUp() {
     username: '',
     password: '',
     email: '',
-    token: null,
+    token: 'null',
     icon: '🦈',
   });
   const classes = useStyles();
@@ -89,20 +89,12 @@ export default function SignUp() {
   }
 
   const handleOnClick = () => {
-    // if(fields.token !== null){
-    //   axios.post(`http://localhost:3000/resource/oauth/github/`, fields)
-    //   .then((response) => {
-    //     console.log('response returned from fetch', response)
-    //     dispatch(signUp(response));
-    // }).then(() => setRedirect(true))
-    // } else {
       console.log('fields', fields)
       axios.post(`http://localhost:3000/resource/auth/signup-auth`, fields)
       .then((response) => {
         console.log('response returned from fetch', response)
         dispatch(signUp(response));
       }).then(() => setRedirect(true));
-    // }
   }
   if (redirect) return <Redirect to="/user" />
   

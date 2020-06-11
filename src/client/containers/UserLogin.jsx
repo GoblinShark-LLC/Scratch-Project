@@ -94,7 +94,7 @@ export default function Login() {
     //     dispatch(signIn(response));
     //   }).then(() => setRedirect(true))
     // } else {
-      axios.post(`http://localhost:3000/resource/auth/signin-auth`, fields)
+      axios.post(`http://localhost:3000//resource/auth/signin-auth`, fields)
       .then((response) => {
         console.log('response returned from fetch', response)
         dispatch(signIn(response));

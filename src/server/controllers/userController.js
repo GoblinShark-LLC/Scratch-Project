@@ -3,6 +3,7 @@ const db = require('./../models/resourceModels');
 const userController = {};
 
 userController.checkIfExistingUser = (req, res, next) => {
+  console.log('checkIfExistingUser', req.body.email)
   let email = req.body.email;
   const values = [email];
   const query = `SELECT * FROM users WHERE email = $1;`
@@ -11,8 +12,6 @@ userController.checkIfExistingUser = (req, res, next) => {
     if(data.rows[0]){
       return next('User already exist, please Login');
     } else {
-      // if does we need?
-      // res.locals.user = req.body;
       return next()
     }
   })
@@ -24,8 +23,6 @@ userController.checkIfExistingUser = (req, res, next) => {
 }
 
 userController.postUserInformation =(req,res,next) => {
-    // we can not direct use req.body because I need do Bcrypt the password before sent to the data database 
-    // let user = req.body;
     console.log('this is data from res.locals.user', res.locals.user)
     let user = res.locals.user
     const values = [user.user_name, user.icon, user.email, user.token, user.password];

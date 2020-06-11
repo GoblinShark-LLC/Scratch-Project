@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,24 +8,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import { signIn } from '../actions/actions';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {Typography, AppBar} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {NavLink} from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import axios from 'axios';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -60,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },  
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   greetingMessage: {
@@ -69,12 +60,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-//   spacer: {
-//       width: "61%"
-//   },
 }));
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const [redirect, setRedirect] = useState(false);
+  const [fields, setFields] = useState({
+    username: '',
+    password: '',
+    token: 'null',
+  });
   const classes = useStyles();
   const greetings = [
       "Happy Days.",
@@ -83,6 +78,25 @@ export default function Login() {
       "お久しぶりですね!"
     ];
 
+  const handleChange = (e) => {
+    const targetName = e.target.name;
+    const value = e.target.value;
+    setFields({
+      ...fields,
+      [targetName]: value
+    })
+  }
+
+  const handleOnClick = () => {
+    console.log('fields', fields)
+      axios.post(`http://localhost:3000/resource/test/signin-auth`, fields)
+      .then((response) => {
+        console.log('response returned from signin', response)
+        dispatch(signIn(response));
+      }).then(() => setRedirect(true));
+  }
+  if (redirect) return <Redirect to="/user" />
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -122,11 +136,12 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            value={fields.username}
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -138,28 +153,24 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={fields.password}
+            onChange={handleChange}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {
-                console.info("I'm a button.");
-              }}
+            onClick={handleOnClick}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="./signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <NavLink to="/signup" variant="body2">
+                Don't have an account? Sign Up
+              </NavLink>
             </Grid>
           </Grid>
         </form>

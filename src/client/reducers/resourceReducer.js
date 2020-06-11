@@ -2,19 +2,22 @@ import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
-  user : [],
+  user : false,
   comments: [], 
   likes: [],
   resources: [
     {
+      _id: 0,
       name: '',
-      id: 0,
-      likes: 0,
       url: '',
+      likes: 0,
+      tech: '',
       description: '',
+      creayed_at: '',
       liked: false,
     },
   ],
+  feed: false,
   currentTopic: 'Javascript',
   topics: [
     'Javascript',
@@ -35,16 +38,22 @@ const initialState = {
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
     // Update state with array of user informnation
-    case types.LOGIN:
-      return {
-        ...state,
-        user: action.payload,
-    };
-    // Update state with array of user informnation
     case types.SIGN_IN:
       return {
+        ...state,
+        user: action.payload.data.user,
+    };
+    // Update state with array of user informnation
+    case types.SIGN_UP:
+      return {
       ...state,
-      user: action.payload,
+      user: action.payload.data.user,
+    };
+    // Update state with array of user informnation
+    case types.SIGN_OUT:
+      return {
+      ...state,
+      user: false,
     };
     // Update state with array of resources
     case types.GET_RESOURCE:
@@ -56,6 +65,7 @@ const resourceReducer = (state = initialState, action) => {
     case types.UPDATE_TOPIC:
       return {
         ...state,
+        feed: true,
         currentTopic: action.payload,
       };
     // Update state with array of resources after adding one
@@ -78,6 +88,12 @@ const resourceReducer = (state = initialState, action) => {
         ...state,
         resources: action.payload,
       };
+    // add fetched comments to state
+    case types.GET_COMMENTS:
+      return {
+        ...state,
+        comments: [...action.payload]
+      }
     default:
       return state;
   }

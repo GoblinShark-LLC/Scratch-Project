@@ -12,7 +12,11 @@ module.exports = {
     contentBase: path.join(__dirname, 'src/client'),
     historyApiFallback: true,
     proxy: {
-      'resource/*': {
+      '/resource/*': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/comments/*': {
         target: 'http://localhost:3000/',
         secure: false,
       },

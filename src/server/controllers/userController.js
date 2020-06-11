@@ -2,7 +2,8 @@ const db = require('./../models/resourceModels');
 
 const userController = {};
 
-userController.checkIfExistingtUser = (req, res, next) => {
+userController.checkIfExistingUser = (req, res, next) => {
+  console.log('checkIfExistingUser', req.body.email)
   let email = req.body.email;
   const values = [email];
   const query = `SELECT * FROM users WHERE email = $1;`
@@ -11,8 +12,6 @@ userController.checkIfExistingtUser = (req, res, next) => {
     if(data.rows[0]){
       return next('User already exist, please Login');
     } else {
-      // if does we need?
-      // res.locals.user = req.body;
       return next()
     }
   })
@@ -24,13 +23,13 @@ userController.checkIfExistingtUser = (req, res, next) => {
 }
 
 userController.postUserInformation =(req,res,next) => {
-    // we can not direct use req.body because I need do Bcrypt the password before sent to the data database 
-    // let user = req.body;
+    console.log('this is data from res.locals.user', res.locals.user)
     let user = res.locals.user
     const values = [user.user_name, user.icon, user.email, user.token, user.password];
-    const query = "INSERT INTO users (user_name, icon, email,token,password) VALUES ($1,$2,$3,$4) RETURNING _id;"
+    const query = "INSERT INTO users (user_name, icon, email, token, password) VALUES ($1,$2,$3,$4,$5) RETURNING _id;"
     db.query(query,values)
     .then(data => {
+      console.log('this is data from userController.postUserInformatio', data)
         res.locals.user._id = data.rows[0]
         return next()
     })
@@ -42,10 +41,11 @@ userController.postUserInformation =(req,res,next) => {
 }
 
 userController.getUserInformation = (req, res, next) => {
-  let {user_name, password, token} = req.local.user;
+  let {user_name, password, token} = res.locals.user;
   // need to decide what info we want from user
-  const query = `SELECT _id user_name icon email FROM users WHERE user_name = $1 password = $2 token = $3`;
-  const values = [user_name, password, token];
+  const query = `SELECT * FROM users WHERE user_name = $1;`
+  const values = [user_name];
+  console.log(values)
   db.query(query, values)
   .then((data) => {
     console.log('this is data from getUserInformation', data)
@@ -61,4 +61,4 @@ userController.getUserInformation = (req, res, next) => {
     });
 };
 
-module.export = userController;
+module.exports = userController;

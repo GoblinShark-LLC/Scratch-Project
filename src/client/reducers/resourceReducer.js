@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 // Set initial state
 const initialState = {
  
-  user : {},
+  user : false,
   comments: [], 
   likes: [],
   resources: [

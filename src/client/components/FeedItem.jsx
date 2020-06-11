@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Comments from '../containers/Comments';
 
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -51,6 +52,9 @@ const FeedItem = (props) => {
         </Box>
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
+
+        <Comments />
+
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
         {/* displays resource link */}
@@ -60,10 +64,14 @@ const FeedItem = (props) => {
             </a>
           </Button>
           {/* toggles heart */}
-          {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          <Button onClick={props.liked === true ? () => props.likeFunc(2, props.id, 'subtractLike') : () => props.likeFunc(2, props.id, 'addLike')}>
+            {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          </Button>
           {/* shows number of likes for that resource */}
             {props.likes}
-          {props.liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+          <Button onClick={props.liked === false ? () => props.likeFunc(2, props.id, 'subtractDislike') : () => props.likeFunc(2, props.id, 'addDislike')}>
+            {props.liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+          </Button>
         </div>
       </CardContent>
     </Card>

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => ({
   resources: state.resources,
   currentTopic: state.currentTopic,
+  user: state.user,
 });
 
 // maps relevant dispatches to functions available as props for
@@ -37,11 +38,19 @@ const mapDispatchToProps = (dispatch) => ({
   getResource: (tech_name) => {
     dispatch(actions.getResource(tech_name));
   },
-  upvote: (resource_id, resource_tech) => {
-    dispatch(actions.upvote(resource_id, resource_tech));
+  upvote: (resource_id, resource_tech) => { 
+    if(user === false){
+      alert("Please sign in to vote")
+    } else {
+      dispatch(actions.upvote(resource_id, resource_tech));
+    }
   },
   downvote: (resource_id, resource_tech) => {
-    dispatch(actions.downvote(resource_id, resource_tech));
+    if(user === false){
+      alert("Please sign in to vote")
+    } else {
+      dispatch(actions.downvote(resource_id, resource_tech));
+    }
   },
 });
 

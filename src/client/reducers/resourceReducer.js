@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
-  user : false,
+  user: false,
   comments: {},
   likes: [],
   resources: [
@@ -42,19 +42,19 @@ const resourceReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.data.user,
-    };
+      };
     // Update state with array of user informnation
     case types.SIGN_UP:
       return {
-      ...state,
-      user: action.payload.data.user,
-    };
+        ...state,
+        user: action.payload.data.user,
+      };
     // Update state with array of user informnation
     case types.SIGN_OUT:
       return {
-      ...state,
-      user: false,
-    };
+        ...state,
+        user: false,
+      };
     // Update state with array of resources
     case types.GET_RESOURCE:
       return {
@@ -90,10 +90,14 @@ const resourceReducer = (state = initialState, action) => {
       };
     // add fetched comments to state
     case types.GET_COMMENTS:
+      // if comments have already been pulled for this resource, update the commments array
+      // if comments have not been pulled then add those comments to the state
       return {
         ...state,
-        comments: [...action.payload]
-      }
+        [action.payload[resource_id]]: {
+          comments: [...action.payload[comments]],
+        },
+      };
     default:
       return state;
   }

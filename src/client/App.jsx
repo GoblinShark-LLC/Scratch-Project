@@ -16,7 +16,8 @@ const myColor = blue;
 
 const theme = createMuiTheme({
   palette: {
-    primary: myColor
+    primary: myColor,
+    secondary: {main: '#ffffff'},
   }
 })
 

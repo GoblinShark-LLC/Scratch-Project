@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
 const authRouter = require('./routes/authRouter');
+const commentsRouter = require('./routes/commentsRouter');
 const testRouter = require('./routes/testRouter');
 // const commentsRouter = require('./routes/commentsRouter');
 // const oauthRouter = require('./routes/oauthRouter');
@@ -17,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // Set up routers
 app.use('/resource/test', testRouter);
 app.use('/resource/auth', authRouter);
+app.use('/comments', commentsRouter);
 app.use('/resource', resourceRouter);
-// app.use('/comments', commentsRouter);
 // Send main app
 app.get('/*', (req, res) => {
   return res

@@ -88,6 +88,12 @@ const resourceReducer = (state = initialState, action) => {
         ...state,
         resources: action.payload,
       };
+    // add fetched comments to state
+    case types.GET_COMMENTS:
+      return {
+        ...state,
+        comments: [...action.payload]
+      }
     default:
       return state;
   }

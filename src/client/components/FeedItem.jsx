@@ -8,12 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Comments from '../containers/Comments';
+import axios from 'axios'; 
 
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 
+import * as actions from '../actions/actions'; 
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
@@ -30,11 +32,21 @@ const useStyles = makeStyles({
     marginTop: 8,
     marginBottom: 8,
   },
-  embed: {
-    width: 300,
-    height: 100,
-  }
+  // embed: {
+  //   width: 300,
+  //   height: 100,
+  // }
 });
+
+// GET COMMENTS, this will make a GET request in actions folder, which will then populate the store with comment info
+// that info will flow down into each comment component 
+const mapDispatchToProps = dispatch => ({
+  getComments: (resourceId) => dispatch(actions.getComments(resourceId))
+});
+
+const mapStateToProps = state => ({
+  comments: state.comments
+})
 
 const FeedItem = (props) => {
   const {user, comments, likes, resources, feed, currentTopic, topics } = useSelector(state => state)
@@ -42,45 +54,32 @@ const FeedItem = (props) => {
   const [disLiked, setDisLiked] = useState(props.liked)
   const [total, setTotal] = useState(props.likes)
   const classes = useStyles();
-  console.log('props.name  ', props.name, 'props.liked ', props.liked)
-  ;
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
   const handleOnClickThumbUpIcon = () => {
-    if(liked === true && disLiked === true){
-      setLiked(false)
-      setDisLiked(false)
-      setTotal(JSON.parse(total)-1)
-      props.likeFunc(user._id, props.id, 'subtractLike')
-    } else if(liked === true && disLiked === false){
-      setLiked(false)
-      setTotal(JSON.parse(total)-1)
-      props.likeFunc(user._id, props.id, 'subtractLike')
-    } else if(liked === false && disLiked === true){
-      alert('please change your orginal vote first')
-      props.likeFunc(user._id, props.id, 'addLike')
-    } else if(liked === false && disLiked === false){
+    if(liked === null){
       setLiked(true)
       setTotal(JSON.parse(total)+1)
       props.likeFunc(user._id, props.id, 'addLike')
+    } else if(liked === true){
+      setLiked(null)
+      setTotal(JSON.parse(total)-1)
+      props.likeFunc(user._id, props.id, 'subtractLike')
+    } else if(liked === false){  
+      alert('please change your orginal vote first')
     }
   };
 
   const handleOnClickThumbDownIcon = () => {
-    if(disLiked === true && liked === true){
+    if(liked === null){
       setLiked(false)
-      setDisLiked(false)
-      setTotal(JSON.parse(total)+1)
-      props.likeFunc(user._id, props.id, 'addLike')
-    } else if (disLiked === false && liked === false){
-      setDisLiked(true)
       setTotal(JSON.parse(total)-1)
       props.likeFunc(user._id, props.id, 'subtractDislike')
-    } else if(disLiked === true && liked === false){ 
-      setDisLiked(false)
+    } else if (liked === false){
+      setLiked(null)
       setTotal(JSON.parse(total)+1)
-      props.likeFunc(user._id, props.id, 'addDislike')
-    } else if(disLiked === false && liked === true){ 
+      props.likeFunc(user._id, props.id, 'addLike')
+    } else if(liked === true){ 
       alert('please change your orginal vote first')
     }
   };
@@ -104,11 +103,11 @@ const FeedItem = (props) => {
         displayLikes = (
       <div>
         <Button onClick={handleOnClickThumbUpIcon}>
-        {liked === true ?<ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+        {liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
         </Button>
         {total}
         <Button onClick={handleOnClickThumbDownIcon}>
-            {disLiked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+            {liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
         </Button>
       </div>
       )
@@ -124,7 +123,10 @@ const FeedItem = (props) => {
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
 
-        {/* <Comments /> */}
+        {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
+
+        {/*<Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
+        <Comments comments={props.comments} />*/}
 
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
@@ -144,4 +146,4 @@ const FeedItem = (props) => {
   );
 };
 
-export default FeedItem;
+export default connect(mapStateToProps, mapDispatchToProps)(FeedItem);

@@ -99,3 +99,18 @@ export const likeFunc = (userId, resourceId, action) => {
   return console.log('adding new like to store');
   
 }
+
+export const getComments = resourceId => {
+  return (dispatch) => {
+    // GET comments related to particular resource
+    axios
+      .get(`http://localhost:8080/comments/${resourceId}`)
+      .then(response => {
+      // Send that data to the store
+        dispatch({
+          type: types.GET_COMMENTS,
+          payload: response.data
+        })
+      })
+  }
+}

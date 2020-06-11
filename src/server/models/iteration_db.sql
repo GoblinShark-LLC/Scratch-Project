@@ -45,8 +45,8 @@ CREATE TABLE public.users (
   "user_name" varchar UNIQUE NOT NULL,
   "email" varchar NOT NULL,
   "icon" varchar NOT NULL,
-  "password" varchar NOT NULL,
-  "token" varchar NOT NULL,
+  "password" varchar,
+  "token" varchar,
   "created_at" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT "users_pk" PRIMARY KEY ("_id")
 ) WITH (

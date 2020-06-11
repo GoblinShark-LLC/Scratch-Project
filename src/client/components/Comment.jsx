@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-const Comment = ({ id, avatar, author, edited, createdAt, lastUpdated }) => {
+const Comment = ({ id, avatar, author, edited, createdAt, lastUpdated, body}) => {
   return (
     <div>
       id : {id}

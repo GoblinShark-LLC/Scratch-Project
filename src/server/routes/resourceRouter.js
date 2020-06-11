@@ -14,7 +14,7 @@ resourceRouter.get('/:techName',
   })
 
 
-resourceRouter.get('/:userId/:techName', resourceController.getResourcesSignedIn, (req, res) => {
+resourceRouter.get('/:techName/:userId', resourceController.getResourcesSignedIn, (req, res) => {
   // USE console.log to SEE resource object => console.log('Send array of resources from get Resources', res.locals.resources);
   return res.status(200).json(res.locals.resources);
 });

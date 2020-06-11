@@ -1,8 +1,10 @@
 import React from 'react';
 import { Container, Typography, AppBar, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect  } from 'react-router-dom';
 import NavContainer from './NavContainer';
+import { signOut } from '../actions/actions';
+import { useDispatch } from "react-redux";
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +44,14 @@ const useStyles = makeStyles((theme) => ({
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
 const UserContainer = (props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   // functions as css-reset
+
+  const handleOnClick = () => {
+    dispatch(signOut(props.user));
+  };
+
   return (
     <Container maxWidth="lg" className={classes.root}>
       {/* AppBar, where the title of website is, stays on top*/}
@@ -54,7 +62,12 @@ const UserContainer = (props) => {
             Developer Resource Aggregator
           </Typography>
           <NavLink to="/" style={{ textDecoration: 'none', display: 'inline'}}>
-            <Button variant="contained" color="primary" className={classes.button1}>Sign out</Button>
+            <Button 
+            variant="contained" 
+            color="primary" 
+            className={classes.button1}
+            onClick={handleOnClick}
+            >Sign out</Button>
           </NavLink>
         </Typography>
       </AppBar>

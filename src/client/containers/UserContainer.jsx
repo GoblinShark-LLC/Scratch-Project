@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
     width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   header: {
     display: 'inline',
@@ -24,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     display: 'inline',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    // marginLeft: theme.spacing(2),
+    // marginRight: theme.spacing(2),
+  },
+  feedContainer: {
+    marginTop: theme.spacing(8),
+    alignItems: 'center',
+    width: '100%',
   },
 
   itemHeader: {
@@ -65,32 +73,38 @@ const UserContainer = () => {
     <Container maxWidth="lg" className={classes.root}>
       {/* AppBar, where the title of website is, stays on top*/}
       <AppBar position="fixed" className={classes.appBar}>
-        <Typography variant="h4" align="left" className={classes.header}>
-          {'</DevShark>'}
+        <div>
+          <Typography variant="h4" align="left" className={classes.header}>
+            {'</DevShark>'}
+          </Typography>
           <Typography variant="inherit" className={classes.subHeader}>
             Developer Resource Aggregator
           </Typography>
+        </div>
+        <div>
+          <Typography variant="h4" align="left" className={classes.header}></Typography>
+          <Typography variant="h4" align="left" className={classes.welcome}>Welcome {props.user.user_name.toUpperCase()}</Typography>
+          <Typography variant="h4" align="left" className={classes.header}>{props.user.icon}</Typography>
+        </div>
+        <div>
           <NavLink to="/" style={{ textDecoration: 'none', display: 'inline'}}>
             <Button 
             variant="contained" 
-            color="primary" 
+            color="secondary" 
             className={classes.button1}
             onClick={handleOnClick}
             >Sign out</Button>
           </NavLink>
-          <Typography variant="h4" align="left" className={classes.header}></Typography>
-          <Typography variant="h4" align="left" className={classes.welcome}>Welcome {props.user.user_name.toUpperCase()}</Typography>
-          <Typography variant="h4" align="left" className={classes.header}>{props.user.icon}</Typography>
-        </Typography>
+        </div>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>
-      <NavContainer />
-    <div className={classes.shiftDown}>
       <div>
-      <FeedContainer />
+        <NavContainer />
       </div>
-    </div>
+      <div className={classes.feedContainer}>
+        <FeedContainer/>
+      </div>
     </Container>
   );
 };

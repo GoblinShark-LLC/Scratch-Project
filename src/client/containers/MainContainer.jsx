@@ -10,7 +10,7 @@ import FeedContainer from './FeedContainer';
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'inline-flex',
+    display: 'flex',
   },
   // header of entire app spans across the top
   appBar: {
@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  feedContainer: {
+    marginTop: theme.spacing(8),
+    alignItems: 'center',
+    width: '100%',
   },
   navButton: {
     marginRight: theme.spacing(1),
@@ -70,8 +75,12 @@ const MainContainer = (props) => {
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
       <div className={classes.offset}></div>
-      <NavContainer />
-      <FeedContainer />
+      <div>
+        <NavContainer />
+      </div>
+      <div className={classes.feedContainer}>
+        <FeedContainer/>
+      </div>
     </Container>
   );
 };

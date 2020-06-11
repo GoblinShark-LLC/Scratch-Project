@@ -116,8 +116,8 @@ const FeedItem = (props) => {
 
         {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
 
-        <Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
-        <Comments comments={props.comments} />
+        {/*<Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
+        <Comments comments={props.comments} />*/}
 
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>

@@ -95,12 +95,22 @@ const resourceReducer = (state = initialState, action) => {
       return {
         ...state,
         // each object in comments represent a resource, with an array of objects on each id, each element of that array reprensenting a single comment
-        comments : {
+        comments: {
           ...state.comments,
-          [action.payload.resourceId] : [
-            ...action.payload.comments
-          ]
-        }
+          [action.payload.resourceId]: [...action.payload.comments],
+        },
+      };
+    case types.ADD_COMMENT:
+      // Backend returns new comment once it has been successfully stored in the DB
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [action.payload.resourceId]: [
+            ...action.payload.comments,
+            action.payload.newComent,
+          ],
+        },
       };
     default:
       return state;

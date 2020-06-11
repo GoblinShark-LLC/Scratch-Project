@@ -124,7 +124,7 @@ export const addComment = (userId, resourceId, body) => {
       .then((response) => {
         dispatch({
           type: types.ADD_COMMENT,
-          payload: { resourceId: response.newComment[0] },
+          payload: { resourceId: resourceID, newComment: response.newComment[0] },
         });
       });
   };

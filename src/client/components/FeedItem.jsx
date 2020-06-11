@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Comments from '../containers/Comments';
-import axios from 'axios'; 
 
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -48,6 +47,10 @@ const FeedItem = (props) => {
   const {user, comments, likes, resources, feed, currentTopic, topics } = useSelector(state => state)
   const [liked, setLiked] = useState(props.liked)
   const [total, setTotal] = useState(props.likes)
+
+  // keep track of whether comments have been requested or not, initialized as FALSE
+  const [commentsVisible, toggleCommentsVisible] = useState(false); 
+
   const classes = useStyles();
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
@@ -74,6 +77,11 @@ const FeedItem = (props) => {
       props.likeFunc(2, props.id, 'addDislike')
     }
   };
+
+  const handleCommentsClick = () => {
+    props.getComments(props.id); 
+    toggleCommentsVisible(true); 
+  }
 
   let displayLikes;
     switch(user) {
@@ -116,8 +124,14 @@ const FeedItem = (props) => {
 
         {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
 
-        {/*<Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
-        <Comments comments={props.comments} />*/}
+        <Button onClick={handleCommentsClick}>{commentsVisible ? 'HIDE COMMENTS' : 'GET COMMENTS'}</Button>
+        {/* visibility of comments dependent on whether user has made get request */}
+        {commentsVisible 
+          ? props.comments[props.id]
+          ? <Comments fetching={false} comments={props.comments[props.id]} /> 
+          : <Comments fetching={true} comments={null}/>
+          :''
+        } 
 
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>

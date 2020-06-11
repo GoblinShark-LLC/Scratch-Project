@@ -1,7 +1,8 @@
+require('dotenv').config();
+
 const { Pool } = require('pg');
 // Link to resources database on elephantSQL
-const PG_URI =
-  'postgres://ondxptpk:A2iAcCDwhK8u_DJk6tkB9H5SEHLCbjRk@ruby.db.elephantsql.com:5432/ondxptpk';
+const PG_URI = process.env.PG_URI;
 
 const pool = new Pool({
   connectionString: PG_URI,

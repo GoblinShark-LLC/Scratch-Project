@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
 const authRouter = require('./routes/authRouter');
+const commentsRouter = require('./routes/commentsRouter');
 // const oauthRouter = require('./routes/oauthRouter');
 const PORT = 3000;
 const cors = require('cors');
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Set up routers
 app.use('/resource', resourceRouter);
 app.use('/resource/auth', authRouter);
-
+app.use('/resouce/comments', commentsRouter);
 // Send main app
 app.get('/*', (req, res) => {
   return res

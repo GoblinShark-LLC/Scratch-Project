@@ -8,11 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Comments from '../containers/Comments';
+import axios from 'axios'; 
 
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
+
+import * as actions from '../actions/actions'; 
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -30,9 +33,18 @@ const useStyles = makeStyles({
   },
 });
 
+// GET COMMENTS, this will make a GET request in actions folder, which will then populate the store with comment info
+// that info will flow down into each comment component 
+const mapDispatchToProps = dispatch => ({
+  getComments: (resourceId) => dispatch(actions.getComments(resourceId))
+});
+
+const mapStateToProps = state => ({
+  comments: state.comments
+})
+
 const FeedItem = (props) => {
   const classes = useStyles();
-  console.log('props.name  ', props.name, 'props.liked ', props.liked)
 
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
@@ -53,7 +65,10 @@ const FeedItem = (props) => {
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
 
-        <Comments />
+        {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
+
+        <Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
+        <Comments comments={props.comments} />
 
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
@@ -78,4 +93,4 @@ const FeedItem = (props) => {
   );
 };
 
-export default FeedItem;
+export default connect(mapStateToProps, mapDispatchToProps)(FeedItem);

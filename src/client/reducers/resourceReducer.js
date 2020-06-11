@@ -2,7 +2,8 @@ import * as types from '../constants/actionTypes';
 
 // Set initial state
 const initialState = {
-  user : [],
+ 
+  user : false,
   comments: [], 
   likes: [],
   resources: [
@@ -84,6 +85,12 @@ const resourceReducer = (state = initialState, action) => {
         ...state,
         resources: action.payload,
       };
+    // add fetched comments to state
+    case types.GET_COMMENTS:
+      return {
+        ...state,
+        comments: [...action.payload]
+      }
     default:
       return state;
   }

@@ -7,9 +7,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Comments from '../containers/Comments';
+import axios from 'axios'; 
 
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
+
+import * as actions from '../actions/actions'; 
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -26,6 +32,16 @@ const useStyles = makeStyles({
     marginBottom: 8,
   },
 });
+
+// GET COMMENTS, this will make a GET request in actions folder, which will then populate the store with comment info
+// that info will flow down into each comment component 
+const mapDispatchToProps = dispatch => ({
+  getComments: (resourceId) => dispatch(actions.getComments(resourceId))
+});
+
+const mapStateToProps = state => ({
+  comments: state.comments
+})
 
 const FeedItem = (props) => {
   const classes = useStyles();
@@ -48,6 +64,12 @@ const FeedItem = (props) => {
         </Box>
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
+
+        {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
+
+        <Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
+        <Comments comments={props.comments} />
+
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
         {/* displays resource link */}
@@ -57,13 +79,13 @@ const FeedItem = (props) => {
             </a>
           </Button>
           {/* toggles heart */}
-          <Button size="small" onClick={() => toggleHeart()}>
+          <Button onClick={props.liked === true ? () => props.likeFunc(2, props.id, 'subtractLike') : () => props.likeFunc(2, props.id, 'addLike')}>
+            {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          </Button>
+          {/* shows number of likes for that resource */}
             {props.likes}
-            {props.liked ? (
-              <FavoriteRoundedIcon />
-            ) : (
-              <FavoriteBorderRoundedIcon />
-            )}
+          <Button onClick={props.liked === false ? () => props.likeFunc(2, props.id, 'subtractDislike') : () => props.likeFunc(2, props.id, 'addDislike')}>
+            {props.liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
           </Button>
         </div>
       </CardContent>
@@ -71,4 +93,4 @@ const FeedItem = (props) => {
   );
 };
 
-export default FeedItem;
+export default connect(mapStateToProps, mapDispatchToProps)(FeedItem);

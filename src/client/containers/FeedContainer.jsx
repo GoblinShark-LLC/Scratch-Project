@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios'; 
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -37,12 +38,21 @@ const mapDispatchToProps = (dispatch) => ({
   getResource: (tech_name) => {
     dispatch(actions.getResource(tech_name));
   },
-  upvote: (resource_id, resource_tech) => {
-    dispatch(actions.upvote(resource_id, resource_tech));
-  },
-  downvote: (resource_id, resource_tech) => {
-    dispatch(actions.downvote(resource_id, resource_tech));
-  },
+  // upvote: (resource_id, resource_tech) => {
+  //   dispatch(actions.upvote(resource_id, resource_tech));
+  // },
+  // downvote: (resource_id, resource_tech) => {
+  //   dispatch(actions.downvote(resource_id, resource_tech));
+  // },
+  likeFunc: (userId, resourceId, action) => {
+    // updates store for fast UX
+    // dispatch(actions.likeFunc(userId, resourceId, action));
+    // updates database
+    axios
+      .put(`http://localhost:3000/resource/${action}/${resourceId}/${userId}`)
+      .then(response => {
+      })
+  }
 });
 
 const FeedContainer = (props) => {
@@ -52,9 +62,14 @@ const FeedContainer = (props) => {
     <div className={classes.shiftDown}>
       <FeedHeader currentTopic={props.currentTopic} />
       <FeedItemContainer
+        addLike={props.addLike}
+        addDislike={props.addDislike}
+        subtractLike={props.subtractLike}
+        subtractDislike={props.subtractDislike}
         resources={props.resources}
         upvote={props.upvote}
         downvote={props.downvote}
+        likeFunc={props.likeFunc}
       />
       <FeedForm />
     </div>

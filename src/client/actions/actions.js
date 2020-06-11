@@ -26,8 +26,10 @@ export const signOut = (userInfo) => ({
 export const getResource = (resource) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:3000/resource/${resource.toLowerCase()}`)
+    // this is a place holder, for the purpose of testing whether props can get passed down
+      .get(`http://localhost:3000/resource/2/${resource.toLowerCase()}`)
       .then((response) => {
+        console.log('response is : ', response)
         dispatch({
           type: types.GET_RESOURCE,
           payload: response.data,
@@ -91,3 +93,24 @@ export const downvote = (id, tech) => {
       });
   };
 };
+
+export const likeFunc = (userId, resourceId, action) => {
+  // THIS IS WHERE STORE GETS CHANGED
+  return console.log('adding new like to store');
+  
+}
+
+export const getComments = resourceId => {
+  return (dispatch) => {
+    // GET comments related to particular resource
+    axios
+      .get(`http://localhost:8080/comments/${resourceId}`)
+      .then(response => {
+      // Send that data to the store
+        dispatch({
+          type: types.GET_COMMENTS,
+          payload: response.data
+        })
+      })
+  }
+}

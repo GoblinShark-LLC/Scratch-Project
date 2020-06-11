@@ -94,9 +94,13 @@ const resourceReducer = (state = initialState, action) => {
       // if comments have not been pulled then add those comments to the state
       return {
         ...state,
-        [action.payload[resource_id]]: {
-          comments: [...action.payload[comments]],
-        },
+        // each object in comments represent a resource, with an array of objects on each id, each element of that array reprensenting a single comment
+        comments : {
+          ...state.comments,
+          [action.payload.resourceId] : [
+            ...action.payload.comments
+          ]
+        }
       };
     default:
       return state;

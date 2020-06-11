@@ -15,7 +15,8 @@ const myColor = blue;
 
 const theme = createMuiTheme({
   palette: {
-    primary: myColor
+    primary: myColor,
+    secondary: {main: '#ffffff'},
   }
 })
 
@@ -30,8 +31,8 @@ const App = ({store}) => {
         <Router>
           <Switch>
             <Route exact path="/" component={MainContainer}/>
-            <Route exact path="/login" component={UserLogin}/>
-            {/* <Route exact path="/signup" component={UserSignUp}/>  */}
+            <Route exact path="/signin" component={UserLogin}/>
+            <Route exact path="/signup" component={UserSignUp}/> 
           </Switch>
         </Router>
       </ThemeProvider>

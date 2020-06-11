@@ -68,6 +68,7 @@ export default function Login() {
   const [fields, setFields] = useState({
     username: '',
     password: '',
+    token: 'null',
   });
   const classes = useStyles();
   const greetings = [
@@ -87,19 +88,12 @@ export default function Login() {
   }
 
   const handleOnClick = () => {
-    // if(fields.token !== null){
-    //   axios.get(`/resource/oauth/github/`, fields)
-    //   .then((response) => {
-    //     console.log('response returned from fetch', response)
-    //     dispatch(signIn(response));
-    //   }).then(() => setRedirect(true))
-    // } else {
-      axios.post(`http://localhost:3000//resource/auth/signin-auth`, fields)
+    console.log('fields', fields)
+      axios.post(`http://localhost:3000/resource/test/signin-auth`, fields)
       .then((response) => {
-        console.log('response returned from fetch', response)
+        console.log('response returned from signin', response)
         dispatch(signIn(response));
       }).then(() => setRedirect(true));
-    // }
   }
   if (redirect) return <Redirect to="/user" />
   

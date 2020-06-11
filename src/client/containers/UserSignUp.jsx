@@ -92,7 +92,7 @@ export default function SignUp() {
       console.log('fields', fields)
       axios.post(`http://localhost:3000/resource/auth/signup-auth`, fields)
       .then((response) => {
-        console.log('response returned from fetch', response)
+        console.log('response returned from signup', response)
         dispatch(signUp(response));
       }).then(() => setRedirect(true));
   }

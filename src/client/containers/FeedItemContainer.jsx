@@ -13,8 +13,7 @@ Upvote and downvote functions are passed down directly as props from the parent 
 
 */
 
-const FeedItemContainer = (props) => {
-  const resources = props.resources;
+const FeedItemContainer = ({ resources, upvote, downvote }) => {
   const items = resources.map((elem, index) => {
     return (
       <FeedItem
@@ -25,8 +24,8 @@ const FeedItemContainer = (props) => {
         id={elem._id}
         key={index}
         tech={elem.tech}
-        upvote={props.upvote}
-        downvote={props.downvote}
+        upvote={upvote}
+        downvote={downvote}
         liked={elem.liked}
       />
     );

@@ -60,7 +60,8 @@ import * as types from '../constants/actionTypes';
 export const getResource = (resource) => {
   return (dispatch) => {
     axios
-      .get(`http://localhost:3000/resource/${resource.toLowerCase()}`)
+    // this is a place holder, for the purpose of testing whether props can get passed down
+      .get(`http://localhost:3000/resource/1/${resource.toLowerCase()}`)
       .then((response) => {
         dispatch({
           type: types.GET_RESOURCE,

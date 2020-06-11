@@ -8,8 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -29,6 +31,7 @@ const useStyles = makeStyles({
 
 const FeedItem = (props) => {
   const classes = useStyles();
+  console.log('props.name  ', props.name, 'props.liked ', props.liked)
 
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
@@ -57,14 +60,10 @@ const FeedItem = (props) => {
             </a>
           </Button>
           {/* toggles heart */}
-          <Button size="small" onClick={() => toggleHeart()}>
+          {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          {/* shows number of likes for that resource */}
             {props.likes}
-            {props.liked ? (
-              <FavoriteRoundedIcon />
-            ) : (
-              <FavoriteBorderRoundedIcon />
-            )}
-          </Button>
+          {props.liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
         </div>
       </CardContent>
     </Card>

@@ -38,17 +38,20 @@ authController.getVerification = (req, res, next) => {
   const query = `SELECT password FROM users WHERE user_name = $1;`
   db.query(query, values)
   .then(data => {
-    const dbPassword = data.rows[0]
+    const dbPassword = data.rows[0].password
+    console.log('this is dbdbPassword from login', dbPassword)
     
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-      bcrypt.compare(dbPassword,hash, (err, success) =>{
+    // bcrypt.hash(password, saltRounds, (err, hash) => {
+    //   console.log('this is hash from login', hash)
+      // bcrypt.compare(dbPassword,hash, (err, success) =>{
         res.locals.user = {
-          user_name: req.body.user_name, 
+          user_name: req.body.username, 
           password: dbPassword,
-          token: null,
+          token: 'null',
         }
         return next()
-  })})})
+  // })})
+  })
   .catch(err => next({
       log: 'Error in authController.getVerification',
       status: 400,

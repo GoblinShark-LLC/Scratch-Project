@@ -3,12 +3,9 @@ const path = require('path');
 const app = express();
 const resourceRouter = require('./routes/resourceRouter');
 const authRouter = require('./routes/authRouter');
-<<<<<<< HEAD
 const commentsRouter = require('./routes/commentsRouter');
-=======
 const testRouter = require('./routes/testRouter');
 // const commentsRouter = require('./routes/commentsRouter');
->>>>>>> f15bd8dc3512177a2a4ff709ab74704ffb4365b7
 // const oauthRouter = require('./routes/oauthRouter');
 const PORT = 3000;
 const cors = require('cors');

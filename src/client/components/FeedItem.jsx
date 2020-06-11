@@ -15,11 +15,8 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 
-<<<<<<< HEAD
 import * as actions from '../actions/actions'; 
-=======
 import { useDispatch, useSelector } from "react-redux";
->>>>>>> f15bd8dc3512177a2a4ff709ab74704ffb4365b7
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -52,12 +49,6 @@ const FeedItem = (props) => {
   const [liked, setLiked] = useState(props.liked)
   const [total, setTotal] = useState(props.likes)
   const classes = useStyles();
-<<<<<<< HEAD
-
-=======
-  console.log('props.name  ', props.name, 'props.liked ', props.liked)
-  ;
->>>>>>> f15bd8dc3512177a2a4ff709ab74704ffb4365b7
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
   const handleOnClickThumbUpIcon = () => {
@@ -123,14 +114,10 @@ const FeedItem = (props) => {
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
 
-<<<<<<< HEAD
         {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
 
         <Button onClick={() => props.getComments(props.id)}>GET COMMENTS</Button>
         <Comments comments={props.comments} />
-=======
-        {/* <Comments /> */}
->>>>>>> f15bd8dc3512177a2a4ff709ab74704ffb4365b7
 
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>

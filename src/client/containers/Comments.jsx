@@ -2,10 +2,20 @@ import React from 'React';
 import Container from '@material-ui/core/Container'; 
 import Typography from '@material-ui/core/Typography'; 
 import Button from '@material-ui/core/Button'; 
+import { makeStyles } from '@material-ui/core/styles';
 import Comment from '../components/Comment';
 
-const Comments = ({ comments, fetching }) => {
+const useStyles = makeStyles({
+  commentWrap: {
+    padding: 14,
+    background: '#fdfdfd',
+    minWidth: 640,
+    minHeight: 300,
+  },
+});
 
+const Comments = ({ comments, fetching }) => {
+  const classes = useStyles();
   let commentsList; 
 
   if (fetching) {
@@ -22,7 +32,7 @@ const Comments = ({ comments, fetching }) => {
         <Comment 
           id={comment._id} 
           body={comment.body} 
-          avatar={comment.avatar} 
+          icon={comment.icon} 
           author={comment.user_name} 
           edited={comment.edited} 
           createdAt = {comment.created_at} 
@@ -31,8 +41,9 @@ const Comments = ({ comments, fetching }) => {
     })
   }
   return (
-    <Container>
+    <Container className={classes.commentWrap}>
       {/* if there are no comments, tell them that, else render the comments list */}
+      <h1>Comments</h1>
       { commentsList.length === 0 
         ? ( 
             <Typography variant='p'>

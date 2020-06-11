@@ -57,6 +57,7 @@ function NavContainer(props) {
   // react hook that works the same as componentDidMount
   // [] means that it will only fire on first render
   useEffect(() => {
+    console.log('getting recouses')
     props.getResources(props.currentTopic);
   }, []);
   /* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */

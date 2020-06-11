@@ -1,12 +1,8 @@
 import React from 'react'; 
 import { Divider, Avatar, Grid, Paper } from "@material-ui/core";
 
-<<<<<<< HEAD
-const Comment = ({ id, avatar, author, edited, createdAt, lastUpdated, body}) => {
-=======
 const Comment = ({ id, body, icon, author, edited, createdAt, lastUpdated }) => {
   console.log(id, body, icon, author, edited, createdAt, lastUpdated)
->>>>>>> master
   return (
     <Paper style={{ padding: "10px 20px" }}>
       <Grid container wrap="nowrap" spacing={2}>

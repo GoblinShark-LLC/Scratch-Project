@@ -8,21 +8,33 @@ commentsRouter.get('/:resourceId',
   commentsController.getComments,
   (req, res) => {
     return res.status(200).json(res.locals.comments);
-});
+  }
+);
 
 // ADD Comment
 commentsRouter.post('/:userId/:resourceId',
   commentsController.addComment,
   (req, res) => {
-    return res.status(200).json({
-      newCommentId : res.locals.commentId
-    })
-})
+    return res.status(200).json(
+      {
+        newCommentId : res.locals.commentId
+      }
+    )
+  }
+);
 
 commentsRouter.delete('/:commentId',
   commentsController.deleteComment,
   (req, res) => {
     return res.sendStatus(200); 
-  })
+  }
+);
+
+commentsRouter.put('/:commentId', 
+  commentsController.editComment,
+  (req, res) => {
+    return res.sendStatus(200)
+  }
+);
 
 module.exports = commentsRouter; 

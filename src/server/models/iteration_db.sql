@@ -7,7 +7,7 @@ CREATE TABLE public.resources (
   "_id" bigserial NOT NULL,
   "name" varchar NOT NULL,
   "url" varchar NOT NULL,
-  "likes" bigint NOT NULL, 
+  "likes" bigint NOT NULL DEFAULT 0, 
   "tech" varchar NOT NULL,
   "description" varchar NOT NULL,
   "created_at" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

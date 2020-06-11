@@ -76,6 +76,27 @@ commentsController.deleteComment = (req, res, next) => {
     })
 };
 
+commentsController.editComment = (req, res, next) => {
+  // updated comment is in req.body
+  const { body } = req.body; 
 
+  // id of comment in req.params
+  const { commentId } = req.params; 
+
+  const query = `UPDATE comments 
+                 SET body = $1, last_updated = CURRENT_TIMESTAMP, edited = true  
+                 WHERE _id = $2;`
+
+  const values = [body, commentId]; 
+
+  db.query(query, values)
+    .then(() => next())
+    .catch(err => {
+      return next({
+        log: 'Error in commentsController.editComment',
+        message: { err: `ERROR in commentsController.editComment ${err}` },
+      })
+    })
+}
 
 module.exports = commentsController; 

@@ -7,28 +7,28 @@ const resourceRouter = express.Router();
 // send results to front-end( store in state) 
 // to be used to populate data cards in Feed Container, Feed Item Container, Feed Item
 
+resourceRouter.get('/:techName', 
+  resourceController.getResourcesFreeLoader,
+  (req, res) => {
+    return res.status(200).json(res.locals.resources);
+  })
 
-resourceRouter.get('/:userId/:techName', resourceController.getResources, (req, res) => {
+
+resourceRouter.get('/:userId/:techName', resourceController.getResourcesSignedIn, (req, res) => {
   // USE console.log to SEE resource object => console.log('Send array of resources from get Resources', res.locals.resources);
   return res.status(200).json(res.locals.resources);
 });
 
 
-// when a post request is made to localhost/resources/:name from the store
-// Add new resource to the database and return the new list of resources
-// resourceRouter.post(
-//   '/:name',
-//   // adds resource by getting TechId for the tech_name inputted(i.e. react)
-//   // PLEASE NOTE: RESOURCES Table does not take in tech_name(aka tech)
-//   // ONLY TECHS table knows tech 
-//   // so we must get tech_id before placing the resource in the Resources Table
-//   resourceController.getTechId,
-//   resourceController.addResource,
-//   resourceController.getResources,
-//   (req, res) => {
-//     return res.status(200).json(res.locals.resources);
-//   }
-// );
+// adds resource to db
+resourceRouter.post(
+  '/:userId/:techName',
+  resourceController.addResource,
+  resourceController.getResourcesSignedIn,
+  (req, res) => {
+    return res.status(200).json(res.locals.resources)
+  }
+);
 
 // Add a like and return the new list of resources
 resourceRouter.put(
@@ -47,15 +47,19 @@ resourceRouter.put(
   }
 );
 
-
-
-// Subtract a like and return the new list of resources
 resourceRouter.put(
-  '/downvote',
-  resourceController.subtractLike,
-  resourceController.getResources,
+  '/addDislike/:resourceId/:userId',
+  resourceController.addDislike,
   (req, res) => {
-    return res.status(200).json(res.locals.resources);
+    return res.sendStatus(200);
+  }
+);
+
+resourceRouter.put(
+  '/subtractDislike/:resourceId/:userId',
+  resourceController.subtractDislike,
+  (rea, res) => {
+    return res.sendStatus(200)
   }
 );
 

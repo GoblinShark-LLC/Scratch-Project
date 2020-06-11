@@ -1,4 +1,4 @@
-export const LOGIN = 'login';
+export const SIGN_UP = 'signUp';
 export const SIGN_IN = 'signIn';
 export const GET_RESOURCE = 'getResource';
 export const UPDATE_TOPIC = 'updateTopic';

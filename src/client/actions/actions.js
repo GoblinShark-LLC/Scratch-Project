@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 
 // Send get request to server for get user history from the database
 // Input: userInfo is a object with user_name, token, password
-// export const login = (userInfo) => {
+// export const signIn = (userInfo) => {
 //   if(userInfo.token !== null){
 //     return (dispatch) => {
 //       axios
@@ -30,7 +30,7 @@ import * as types from '../constants/actionTypes';
 
 // // Send post request to server for add user to the database
 // // Input: userInfo is a object with user_name, icon, email, token, password
-// export const signIn = (userInfo) => {
+// export const signUp = (userInfo) => {
 //   if(userInfo.token !== null){
 //     return (dispatch) => {
 //       axios

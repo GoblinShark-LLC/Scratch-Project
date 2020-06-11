@@ -3,8 +3,9 @@ import { Container, Typography, AppBar, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect  } from 'react-router-dom';
 import NavContainer from './NavContainer';
+import FeedContainer from './FeedContainer';
 import { signOut } from '../actions/actions';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // generate object to hold our custom stylings
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline',
     width: "100%",
   },
+  welcome: {
+    display: 'inline',
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+
   itemHeader: {
     marginTop: 15,
     marginBottom: 15,
@@ -43,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
-const UserContainer = (props) => {
+const UserContainer = () => {
+  const props = useSelector(state => state)
+  console.log('this is user props', props)
   const dispatch = useDispatch();
   const classes = useStyles();
   // functions as css-reset
@@ -69,6 +78,9 @@ const UserContainer = (props) => {
             onClick={handleOnClick}
             >Sign out</Button>
           </NavLink>
+          <Typography variant="h4" align="left" className={classes.header}></Typography>
+          <Typography variant="h4" align="left" className={classes.welcome}>Welcome {props.user.user_name.toUpperCase()}</Typography>
+          <Typography variant="h4" align="left" className={classes.header}>{props.user.icon}</Typography>
         </Typography>
       </AppBar>
       {/* Drawer is our sidebar navigation component, stays permanently fixed to side, as docs recommend on desktop usage */}
@@ -76,11 +88,7 @@ const UserContainer = (props) => {
       <NavContainer />
     <div className={classes.shiftDown}>
       <div>
-      <Box className={classes.itemHeader}>
-        <Typography variant="h4" component="h4" align="center">
-          {'What would you like to research?'}
-        </Typography>
-      </Box>
+      <FeedContainer />
       </div>
     </div>
     </Container>

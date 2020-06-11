@@ -31,7 +31,18 @@ commentsController.getComments = (req, res, next) => {
 };
 
 commentsController.addComments = (req, res, next) => {
-  // 
+  // comment body is in the request body
+  const { body } = req.body; 
+  const { userId, resourceId } = req.params;
+
+  const query = `INSERT INTO comments (body, user_id, resource_id) 
+                 VALUES ($1, $2, $3)
+                 RETURNING _id;`
+  
+  const values = [body, userId, resourceId];
+
+  db.query(query, values)
+    .then()
 }
 
 module.exports = commentsController; 

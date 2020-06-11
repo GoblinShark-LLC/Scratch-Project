@@ -30,11 +30,16 @@ const useStyles = makeStyles({
     marginTop: 8,
     marginBottom: 8,
   },
+  embed: {
+    width: 300,
+    height: 100,
+  }
 });
 
 const FeedItem = (props) => {
   const {user, comments, likes, resources, feed, currentTopic, topics } = useSelector(state => state)
   const [liked, setLiked] = useState(props.liked)
+  const [disLiked, setDisLiked] = useState(props.liked)
   const [total, setTotal] = useState(props.likes)
   const classes = useStyles();
   console.log('props.name  ', props.name, 'props.liked ', props.liked)
@@ -42,26 +47,41 @@ const FeedItem = (props) => {
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
   const handleOnClickThumbUpIcon = () => {
-    if(liked === true){
+    if(liked === true && disLiked === true){
       setLiked(false)
-      setTotal(total-1)
-      props.likeFunc(2, props.id, 'subtractLike')
-    } else {
+      setDisLiked(false)
+      setTotal(JSON.parse(total)-1)
+      props.likeFunc(user._id, props.id, 'subtractLike')
+    } else if(liked === true && disLiked === false){
+      setLiked(false)
+      setTotal(JSON.parse(total)-1)
+      props.likeFunc(user._id, props.id, 'subtractLike')
+    } else if(liked === false && disLiked === true){
+      alert('please change your orginal vote first')
+      props.likeFunc(user._id, props.id, 'addLike')
+    } else if(liked === false && disLiked === false){
       setLiked(true)
-      setTotal(total+1)
-      props.likeFunc(2, props.id, 'addLike')
+      setTotal(JSON.parse(total)+1)
+      props.likeFunc(user._id, props.id, 'addLike')
     }
   };
 
   const handleOnClickThumbDownIcon = () => {
-    if (liked === false){
-      setLiked(true)
-      setTotal(total-1)
-      props.likeFunc(2, props.id, 'subtractDislike')
-    } else { 
+    if(disLiked === true && liked === true){
       setLiked(false)
-      setTotal(total+1)
-      props.likeFunc(2, props.id, 'addDislike')
+      setDisLiked(false)
+      setTotal(JSON.parse(total)+1)
+      props.likeFunc(user._id, props.id, 'addLike')
+    } else if (disLiked === false && liked === false){
+      setDisLiked(true)
+      setTotal(JSON.parse(total)-1)
+      props.likeFunc(user._id, props.id, 'subtractDislike')
+    } else if(disLiked === true && liked === false){ 
+      setDisLiked(false)
+      setTotal(JSON.parse(total)+1)
+      props.likeFunc(user._id, props.id, 'addDislike')
+    } else if(disLiked === false && liked === true){ 
+      alert('please change your orginal vote first')
     }
   };
 
@@ -69,7 +89,7 @@ const FeedItem = (props) => {
     switch(user) {
       case false :
         displayLikes = (
-          <div>
+        <div>
           <Button onClick = {() => {alert(' To vote, please login.')}}>
           <ThumbUpOutlinedIcon color="disabled"/>
           </Button>
@@ -88,7 +108,7 @@ const FeedItem = (props) => {
         </Button>
         {total}
         <Button onClick={handleOnClickThumbDownIcon}>
-            {liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+            {disLiked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
         </Button>
       </div>
       )
@@ -114,6 +134,9 @@ const FeedItem = (props) => {
               Visit Resource
             </a>
           </Button>
+          {/* <embed
+          src={props.url} 
+          className={classes.embed}></embed> */}
           {displayLikes}
         </div>
       </CardContent>

@@ -7,9 +7,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Comments from '../containers/Comments';
 
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
+
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -28,17 +33,67 @@ const useStyles = makeStyles({
 });
 
 const FeedItem = (props) => {
+  const {user, comments, likes, resources, feed, currentTopic, topics } = useSelector(state => state)
+  const [liked, setLiked] = useState(props.liked)
+  const [total, setTotal] = useState(props.likes)
   const classes = useStyles();
-
+  console.log('props.name  ', props.name, 'props.liked ', props.liked)
+  ;
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
-  const toggleHeart = () => {
-    if (props.liked) {
-      props.downvote(props.id, props.tech);
+  const handleOnClickThumbUpIcon = () => {
+    if(liked === true){
+      setLiked(false)
+      setTotal(total-1)
+      props.likeFunc(2, props.id, 'subtractLike')
     } else {
-      props.upvote(props.id, props.tech);
+      setLiked(true)
+      setTotal(total+1)
+      props.likeFunc(2, props.id, 'addLike')
     }
   };
+
+  const handleOnClickThumbDownIcon = () => {
+    if (liked === false){
+      setLiked(true)
+      setTotal(total-1)
+      props.likeFunc(2, props.id, 'subtractDislike')
+    } else { 
+      setLiked(false)
+      setTotal(total+1)
+      props.likeFunc(2, props.id, 'addDislike')
+    }
+  };
+
+  let displayLikes;
+    switch(user) {
+      case false :
+        displayLikes = (
+          <div>
+          <Button onClick = {() => {alert(' To vote, please login.')}}>
+          <ThumbUpOutlinedIcon color="disabled"/>
+          </Button>
+          {props.likes}
+          <Button onClick = {() =>{alert(' To vote, please login.')}}>
+          <ThumbDownOutlinedIcon color="disabled"/>
+          </Button>
+        </div>
+        )
+        break;
+      default:
+        displayLikes = (
+      <div>
+        <Button onClick={handleOnClickThumbUpIcon}>
+        {liked === true ?<ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+        </Button>
+        {total}
+        <Button onClick={handleOnClickThumbDownIcon}>
+            {liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+        </Button>
+      </div>
+      )
+    }
+
   return (
     <Card className={classes.itemWrap}>
       <CardContent>
@@ -48,6 +103,9 @@ const FeedItem = (props) => {
         </Box>
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
+
+        {/* <Comments /> */}
+
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
         {/* displays resource link */}
@@ -56,15 +114,7 @@ const FeedItem = (props) => {
               Visit Resource
             </a>
           </Button>
-          {/* toggles heart */}
-          <Button size="small" onClick={() => toggleHeart()}>
-            {props.likes}
-            {props.liked ? (
-              <FavoriteRoundedIcon />
-            ) : (
-              <FavoriteBorderRoundedIcon />
-            )}
-          </Button>
+          {displayLikes}
         </div>
       </CardContent>
     </Card>

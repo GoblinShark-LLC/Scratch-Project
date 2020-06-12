@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ListItem, ListItemText } from '@material-ui/core';
 import { NavLink, Redirect } from 'react-router-dom';
 
-export default function NavItem({ topic, getFunc }) {
+export default function NavItem({ topic, getFunc, userId }) {
   // do that if you want to do some functionality before you be redirect to that page
   // const [redirect, setRedirect] = useState(false);
   // const fetch () => {
@@ -18,7 +18,7 @@ export default function NavItem({ topic, getFunc }) {
     // <NavLink to="login">
     //   <button>Login</button>
     // </NavLink>
-    <ListItem button onClick={(e) => getFunc(topic)}>
+    <ListItem button onClick={(e) => getFunc(topic, userId )}>
       <ListItemText primary={topic} />
     </ListItem>
   );

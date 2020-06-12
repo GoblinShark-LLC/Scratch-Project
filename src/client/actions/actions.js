@@ -23,11 +23,13 @@ export const signOut = (userInfo) => ({
 
 // Send get request to server for resource (tech name)
 // Input: resource name
-export const getResource = (resource) => {
+export const getResources = (resourceName, userId = '') => {
+  console.log('userId is : ', userId)
+  console.log('path being sent to GET :', `http://localhost:3000/resource/${resourceName.toLowerCase()}/${userId}`)
   return (dispatch) => {
     axios
       // this is a place holder, for the purpose of testing whether props can get passed down
-      .get(`http://localhost:3000/resource/2/${resource.toLowerCase()}`)
+      .get(`http://localhost:3000/resource/${resourceName.toLowerCase()}/${userId}`)
       .then((response) => {
         console.log('response is : ', response);
         dispatch({
@@ -66,37 +68,30 @@ export const addResource = (resource) => {
 
 // Send put request to increase like count
 // Input: Id of the resource and the technology associated with the resource
-export const upvote = (id, tech) => {
-  return (dispatch) => {
-    axios
-      .put('http://localhost:3000/resource/upvote', { id: id, tech: tech })
-      .then((response) => {
-        dispatch({
-          type: types.UPVOTE,
-          payload: response.data,
-        });
-      });
-  };
-};
+export const upvote = (resourceId, liked) => ({
+  type: types.UPVOTE,
+  payload: {
+    resourceId,
+    liked
+  }
+});
 
 // Send put request to increase like count
 // Input: Id of the resource and the technology associated with the resource
-export const downvote = (id, tech) => {
-  return (dispatch) => {
-    axios
-      .put('http://localhost:3000/resource/downvote', { id: id, tech: tech })
-      .then((response) => {
-        dispatch({
-          type: types.DOWNVOTE,
-          payload: response.data,
-        });
-      });
-  };
-};
+export const downvote = (resourceId, liked) => ({
+  type: types.DOWNVOTE,
+  payload: {
+    resourceId,
+    liked
+  }
+});
 
 export const likeFunc = (userId, resourceId, action) => {
-  // THIS IS WHERE STORE GETS CHANGED
-  return console.log('adding new like to store');
+  
+  return () => {
+
+    axios
+  };
 };
 
 export const getComments = (resourceId) => {

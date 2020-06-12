@@ -33,7 +33,7 @@ function AddComment(resourceId) {
 
     //   Add the users's comment to the DB
     dispatch(
-      actions.addComment(user._id, Number(resourceId.resourceId), input)
+      actions.addComment(user._id, Number(resourceId.resourceId), comment)
     );
     // reset the input field to be empty
   };
@@ -43,6 +43,7 @@ function AddComment(resourceId) {
       <TextField
         id="addComment"
         // helperText="Incorrect entry."
+        value={input}
         variant="outlined"
         name="addComment"
         multiline

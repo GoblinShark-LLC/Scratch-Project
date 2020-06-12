@@ -36,6 +36,8 @@ const initialState = {
 };
 
 const resourceReducer = (state = initialState, action) => {
+  let newResources; 
+
   switch (action.type) {
     // Update state with array of user informnation
     case types.SIGN_IN:
@@ -77,16 +79,44 @@ const resourceReducer = (state = initialState, action) => {
     // Update state with new number of upvotes
     case types.UPVOTE:
       // Backend returns an array of resource objects with the updated likes for each
+      newResources = [];
+
+      for (let i = 0; i < state.resources.length; i++) {
+        if (state.resources[i]._id === action.payload.resourceId) {
+          const newObj = {
+            ...state.resources[i],
+            liked : action.payload.liked,
+            likes : parseInt(state.resources[i].likes) + 1
+          };
+          newResources.push(newObj); 
+        } else {
+          newResources.push(state.resources[i])
+        }
+      }
       return {
         ...state,
-        resources: action.payload,
+        resources: newResources
       };
     // Update state with new number of upvotes
     case types.DOWNVOTE:
-      // Backend returns one an array of resource objects with updated likes for each
+      // Backend returns an array of resource objects with the updated likes for each
+      newResources = [];
+
+      for (let i = 0; i < state.resources.length; i++) {
+        if (state.resources[i]._id === action.payload.resourceId) {
+          const newObj = {
+            ...state.resources[i],
+            liked : action.payload.liked,
+            likes : parseInt(state.resources[i].likes) - 1
+          };
+          newResources.push(newObj); 
+        } else {
+          newResources.push(state.resources[i])
+        }
+      }
       return {
         ...state,
-        resources: action.payload,
+        resources: newResources
       };
     // add fetched comments to state
     case types.GET_COMMENTS:

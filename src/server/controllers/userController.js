@@ -26,11 +26,11 @@ userController.postUserInformation =(req,res,next) => {
     console.log('this is data from res.locals.user', res.locals.user)
     let user = res.locals.user
     const values = [user.user_name, user.icon, user.email, user.token, user.password];
-    const query = "INSERT INTO users (user_name, icon, email, token, password) VALUES ($1,$2,$3,$4,$5) RETURNING _id;"
+    const query = "INSERT INTO users (user_name, icon, email, token, password) VALUES ($1,$2,$3,$4,$5) RETURNING *;"
     db.query(query,values)
     .then(data => {
       console.log('this is data from userController.postUserInformatio', data)
-        res.locals.user._id = data.rows[0]
+        res.locals.user = data.rows[0]
         return next()
     })
     .catch(err => next({

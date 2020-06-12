@@ -48,9 +48,12 @@ const Comments = ({ comments, fetching, resourceId }) => {
       {/* if there are no comments, tell them that, else render the comments list */}
       <h1>Comments</h1>
       {commentsList.length === 0 ? (
-        <Typography variant="p">
-          {'Nobody has commented on this post. Be the first!'}
-        </Typography>
+        <React.Fragment>
+          <Typography variant="p">
+            {'Nobody has commented on this post. Be the first!'}
+          </Typography>
+          {user._id ? <AddComment resourceId={resourceId} /> : ''}
+        </React.Fragment>
       ) : (
         <React.Fragment>
           {/* only render the AddComment component if the user is logged in */}

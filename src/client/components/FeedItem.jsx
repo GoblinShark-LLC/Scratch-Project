@@ -122,8 +122,9 @@ const FeedItem = (props) => {
       displayVideo = <div></div>;
   }
   const handleCommentsClick = () => {
+    console.log('in the handle comments function ');
     props.getComments(props.id);
-    toggleCommentsVisible(true);
+    toggleCommentsVisible(!commentsVisible);
   };
 
   let displayLikes;

@@ -14,10 +14,11 @@ commentsRouter.get('/:resourceId',
 // ADD Comment
 commentsRouter.post('/:userId/:resourceId',
   commentsController.addComment,
+  commentsController.getComments,
   (req, res) => {
     return res.status(200).json(
       {
-        newCommentId : res.locals.commentId
+        newComment : res.locals.newComment
       }
     )
   }

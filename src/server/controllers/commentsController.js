@@ -18,7 +18,7 @@ commentsController.getComments = (req, res, next) => {
   db.query(query, value)
     .then((data) => {
       // stored fetched data in res.locals
-      console.log('data just fetched :', data);
+      console.log('data just fetched :', data.rows);
       res.locals.comments = data.rows;
       return next();
     })
@@ -34,7 +34,6 @@ commentsController.addComment = (req, res, next) => {
   console.log('in the addComments controller');
   // comment body is in the request body
   const { body } = req.body;
-  console.log(body);
 
   // id of commenting user, and id or resource on which they are commenting is in req.params
   const { userId, resourceId } = req.params;
@@ -60,7 +59,7 @@ commentsController.addComment = (req, res, next) => {
       return db.query(getDetailsQuery, [newCommentId]);
     })
     .then((data) => {
-      console.log('data just fetched :', data);
+      console.log('data just fetched :', data.rows);
       res.locals.newComment = data.rows;
       next();
     })

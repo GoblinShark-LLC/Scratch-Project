@@ -122,9 +122,13 @@ export const addComment = (userId, resourceId, body) => {
         body: body,
       })
       .then((response) => {
+        console.log('response is ', response.data);
         dispatch({
           type: types.ADD_COMMENT,
-          payload: { resourceId: resourceID, newComment: response.newComment[0] },
+          payload: {
+            resourceId: resourceId,
+            newComment: response.data.newComment[0],
+          },
         });
       });
   };

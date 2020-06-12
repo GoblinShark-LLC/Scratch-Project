@@ -102,13 +102,15 @@ const resourceReducer = (state = initialState, action) => {
       };
     case types.ADD_COMMENT:
       // Backend returns new comment once it has been successfully stored in the DB
+      console.log('In the reducer!!!!');
+      console.log(action.payload);
       return {
         ...state,
         comments: {
           ...state.comments,
           [action.payload.resourceId]: [
-            ...action.payload.comments,
-            action.payload.newComent,
+            action.payload.newComment,
+            ...state.comments[action.payload.resourceId],
           ],
         },
       };

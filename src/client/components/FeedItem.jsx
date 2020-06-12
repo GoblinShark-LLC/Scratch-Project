@@ -185,7 +185,6 @@ const FeedItem = (props) => {
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
         {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
-        git
         <Button onClick={handleCommentsClick}>
           {commentsVisible ? 'HIDE COMMENTS' : 'GET COMMENTS'}
         </Button>

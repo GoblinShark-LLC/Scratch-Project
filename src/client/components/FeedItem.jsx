@@ -14,14 +14,9 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 
-<<<<<<< HEAD
 import * as actions from '../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
-=======
-import * as actions from '../actions/actions'; 
-import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
->>>>>>> master
 
 const useStyles = makeStyles({
   itemWrap: {
@@ -44,54 +39,29 @@ const useStyles = makeStyles({
 });
 
 // GET COMMENTS, this will make a GET request in actions folder, which will then populate the store with comment info
-<<<<<<< HEAD
 // that info will flow down into each comment component
 const mapDispatchToProps = (dispatch) => ({
   getComments: (resourceId) => dispatch(actions.getComments(resourceId)),
+  upvote: (resourceId, liked) => dispatch(actions.upvote(resourceId, liked)),
+  downvote: (resourceId, liked) =>
+    dispatch(actions.downvote(resourceId, liked)),
 });
 
 const mapStateToProps = (state) => ({
   comments: state.comments,
-});
-
-const FeedItem = (props) => {
-  const {
-    user,
-    comments,
-    likes,
-    resources,
-    feed,
-    currentTopic,
-    topics,
-  } = useSelector((state) => state);
-  const [liked, setLiked] = useState(props.liked);
-  const [disLiked, setDisLiked] = useState(props.liked);
-  const [total, setTotal] = useState(props.likes);
-=======
-// that info will flow down into each comment component 
-const mapDispatchToProps = dispatch => ({
-  getComments: (resourceId) => dispatch(actions.getComments(resourceId)),
-  upvote: (resourceId, liked) => dispatch(actions.upvote(resourceId, liked)),
-  downvote: (resourceId, liked) => dispatch(actions.downvote(resourceId, liked))
-});
-
-const mapStateToProps = state => ({
-  comments: state.comments,
   user: state.user,
-  
-})
+});
 
 const FeedItem = (props) => {
-  console.log(props.name, 'is liked? this is props.liked ', props.liked)
+  console.log(props.name, 'is liked? this is props.liked ', props.liked);
   // const {user, comments, likes, resources, feed, currentTopic, topics } = useSelector(state => state)
-  // const likedCopy = props.liked; 
+  // const likedCopy = props.liked;
   // const totalsCopy = props.likes;
 
   // const [liked, setLiked] = useState(likedCopy)
-  // console.log('liked from useState is :', liked); 
+  // console.log('liked from useState is :', liked);
   // const [disLiked, setDisLiked] = useState(likedCopy)
   // const [total, setTotal] = useState(totalsCopy)
->>>>>>> master
 
   // keep track of whether comments have been requested or not, initialized as FALSE
   const [commentsVisible, toggleCommentsVisible] = useState(false);
@@ -100,35 +70,35 @@ const FeedItem = (props) => {
   // toggles the heart icon and calls action to increment/decrement 'likes' accordingly
   // props.liked, props.tech, and props.id passed down from DB to parent component to FeedItem
   const handleOnClickThumbUpIcon = () => {
-    console.log('user._id is :', props.user._id)
-    if(props.liked === null){
-      props.upvote(props.id, true)
+    console.log('user._id is :', props.user._id);
+    if (props.liked === null) {
+      props.upvote(props.id, true);
       // setLiked(true)
       // setTotal(JSON.parse(total)+1)
-      likeFunc(props.user._id, props.id, 'addLike')
-    } else if(props.liked === true){
-      props.downvote(props.id, null)
+      likeFunc(props.user._id, props.id, 'addLike');
+    } else if (props.liked === true) {
+      props.downvote(props.id, null);
       // setLiked(null)
       // setTotal(JSON.parse(total)-1)
-      props.likeFunc(props.user._id, props.id, 'subtractLike')
-    } else if(props.liked === false){  
-      alert('please change your orginal vote first')
+      props.likeFunc(props.user._id, props.id, 'subtractLike');
+    } else if (props.liked === false) {
+      alert('please change your orginal vote first');
     }
   };
 
   const handleOnClickThumbDownIcon = () => {
-    if(props.liked === null){
-      props.downvote(props.id, false)
+    if (props.liked === null) {
+      props.downvote(props.id, false);
       // setLiked(false)
       // setTotal(JSON.parse(total)-1)
-      likeFunc(props.user._id, props.id, 'subtractDislike')
-    } else if (props.liked === false){
-      props.upvote(props.id, null)
+      likeFunc(props.user._id, props.id, 'subtractDislike');
+    } else if (props.liked === false) {
+      props.upvote(props.id, null);
       // setLiked(null)
       // setTotal(JSON.parse(total)+1)
-      likeFunc(props.user._id, props.id, 'addLike')
-    } else if(props.liked === true){ 
-      alert('please change your orginal vote first')
+      likeFunc(props.user._id, props.id, 'addLike');
+    } else if (props.liked === true) {
+      alert('please change your orginal vote first');
     }
   };
 
@@ -157,9 +127,9 @@ const FeedItem = (props) => {
   };
 
   let displayLikes;
-    switch(props.user) {
-      case false :
-        displayLikes = (
+  switch (props.user) {
+    case false:
+      displayLikes = (
         <div>
           <Button
             onClick={() => {
@@ -177,28 +147,32 @@ const FeedItem = (props) => {
             <ThumbDownOutlinedIcon color="disabled" />
           </Button>
         </div>
-        )
-        break;
-      default:
-        displayLikes = (
-      <div>
-        <Button onClick={handleOnClickThumbUpIcon}>
-        {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
-        </Button>
-        {props.likes}
-        <Button onClick={handleOnClickThumbDownIcon}>
-            {props.liked === false ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
-        </Button>
-      </div>
-      )
-    }
+      );
+      break;
+    default:
+      displayLikes = (
+        <div>
+          <Button onClick={handleOnClickThumbUpIcon}>
+            {props.liked === true ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          </Button>
+          {props.likes}
+          <Button onClick={handleOnClickThumbDownIcon}>
+            {props.liked === false ? (
+              <ThumbDownIcon />
+            ) : (
+              <ThumbDownOutlinedIcon />
+            )}
+          </Button>
+        </div>
+      );
+  }
 
-    // This function makes an AJAX call to update the likes for a particular resource and user so the information being currently rendered in local state persists on page reload
-    const likeFunc = (userId, resourceId, action) => {
-      axios
-        .put(`http://localhost:3000/resource/${action}/${resourceId}/${userId}`)
-        .then(console.log('successfully did like func!'))
-    }
+  // This function makes an AJAX call to update the likes for a particular resource and user so the information being currently rendered in local state persists on page reload
+  const likeFunc = (userId, resourceId, action) => {
+    axios
+      .put(`http://localhost:3000/resource/${action}/${resourceId}/${userId}`)
+      .then(console.log('successfully did like func!'));
+  };
 
   return (
     <Card className={classes.itemWrap}>
@@ -209,9 +183,8 @@ const FeedItem = (props) => {
         </Box>
         {/* displays resource description */}
         <Typography variant="body1">{props.description}</Typography>
-
         {/* COMMENTS BUTTON, THIS WILL GET COMMENTS */}
-git
+        git
         <Button onClick={handleCommentsClick}>
           {commentsVisible ? 'HIDE COMMENTS' : 'GET COMMENTS'}
         </Button>
@@ -229,7 +202,6 @@ git
         ) : (
           ''
         )}
-
         <Divider className={classes.itemDiv} />
         <div className={classes.itemActions}>
           {/* displays resource link */}

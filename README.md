@@ -6,7 +6,9 @@ Ever wanted to know the best resource for a certain language or framework? Well,
 Check out the following features:
 
   - Explore the most popular resources, voted on by fellow developers
-    ![alt text](https://github.com/vcermeno/Scratch-Project/images/devshark-explore_resources.gif)
+  
+  ![alt text](/images/devshark-explore_resources.gif)
 
   - Help out the community by adding resources
-  ![alt text](https://github.com/vcermeno/Scratch-Project/images/Devshark-add_new_resources.gif)
+  
+  ![alt text](/images/Devshark-add_new_resource.gif)

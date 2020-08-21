@@ -12,4 +12,4 @@ Check out the following features:
     ![alt text](/images/devshark-vote_for_resources.gif)
 
   - Help out the community by adding resources
-    ![alt text](/images/Devshark-add_new_resources.gif)
+    ![alt text](/images/Devshark-add_new_resource.gif)
